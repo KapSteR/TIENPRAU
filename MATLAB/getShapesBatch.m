@@ -23,7 +23,9 @@ for subject = 1:no_subjects
 		    filename = files(frame).name;
 		    S{subject}{sequence}{frame} = dlmread(filename);
 		end
+		cd('..')
 	end
+	cd('..')
 end
 
 % Go back to original directory
