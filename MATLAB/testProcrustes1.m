@@ -13,4 +13,3 @@ for sequence = 1:metaData(subject).no_seq
 	Z{sequence} = procrustesSequence(S{sequence});
 end
 
-

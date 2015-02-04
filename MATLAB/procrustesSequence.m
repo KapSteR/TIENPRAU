@@ -1,14 +1,14 @@
-function [Z] = procrustesSequence(S,S0)
+function [Z, Z0, d] = procrustesSequence(S,S0)
 
 if nargin == 1
 
-	S0 = S{1}{1};
+	S0 = S{1};
 
-	e_stop = 0.1;
+	n_iters = 2;
 
 elseif nargin == 2
 
-	e_stop = inf;
+	n_iters = 1;
 
 else
 	error('Wrong number of input arguments');	
@@ -17,20 +17,33 @@ end
 
 nFrames = size(S,2);
 
-while e >= e_stop
+S1 = zeros([nFrames, size(S0)]);
+
+for frame = 1:nFrames
+
+	S1(frame,:,:) = S{frame};
+
+end
+
+Z = zeros(size(S1));
+
+for i = 1:n_iters
 
 	for frame = 1:nFrames 
 
-		Z{frame} = procrustes(S0,S{frame})
+		[d, Z(frame,:,:)] = procrustes(S0,squeeze(S1(frame,:,:)));
 
 	end
 
-	Z0 = mean(Z);
-
-	e = procrustes(S0,Z0);
+	Z0 = squeeze(mean(Z));
 
 	S0 = Z0;
 
-	S = Z;
+	S1 = Z;
 
 end
+
+d = procrustes(S0,Z0);
+
+Z = num2cell(Z,[2 3]);
+Z = cellfun(@squeeze, Z, 'UniformOutput', false);
