@@ -24,6 +24,8 @@ else
 
 end
 
+Z = S;
+
 
 for i = 1:n_iters
 
