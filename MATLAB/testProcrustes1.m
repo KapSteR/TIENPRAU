@@ -39,8 +39,8 @@ for frame = 1:metaData(subject).no_frames(sequence);
 
     subplot(1,2,2)
     plot(Z{sequence}{frame}(:,1),Z{sequence}{frame}(:,2)*-1,'*') % Multiply by -1 to invert axis to fit image
-%     xlim([150 300])
-%     ylim([-220 -80])
+    xlim([0 320])
+    ylim([-240 -0])
     % pause(0.1)
     drawnow
 end

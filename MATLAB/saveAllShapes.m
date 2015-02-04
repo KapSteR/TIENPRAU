@@ -15,7 +15,9 @@ save('AllShapesRaw.mat', 'S')
 disp('All unaligned shapes saved');
 toc
 
-[Z, Z0] = procrustesBatch(S)
+[Z, Z0] = procrustesBatch(S, metaData, no_subjects);
+
+save('AllShapesAlign.mat', 'Z', 'Z0')
 
 disp('All aligned shapes saved');
 toc

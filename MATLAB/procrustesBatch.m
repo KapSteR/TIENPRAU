@@ -1,18 +1,20 @@
-function [Z, Z0] = procrustesBatch(S,S0)
+function [Z, Z0] = procrustesBatch(S, metaData, no_subjects, S0)
 
 
 % If no reference shape is given
-if nargin == 1
+if nargin == 3
 
 	% Make reference shape the mean of all shapes
-	S0 = meanShapeBatch(S);
+	Z0 = meanShapeBatch(S, metaData, no_subjects);
 
 	% Set number of iterations to two and adjust mean shape
 	% Two chosen on recomendation from "DTU ph.d web page"
 	n_iters = 2;
 
 % If reference shape is given
-elseif nargin == 2
+elseif nargin == 4
+
+	Z0 = S0;
 
 	% Only run alignment once
 	n_iters = 1;
@@ -34,13 +36,13 @@ for i = 1:n_iters
 			% For all frames in a sequence
 			for frame = 1:metaData(subject).no_frames(sequence);
 
-				Z{subject}{sequence}{frame} = procrustes(S{subject}{sequence}{frame}, S0);
+				[d, Z{subject}{sequence}{frame}] = procrustes(Z0, S{subject}{sequence}{frame});
 
 			end
 		end
 	end
 
-	Z0 = meanShapeBatch(Z);
+	Z0 = meanShapeBatch(Z, metaData, no_subjects);
 
 	S = Z;
 

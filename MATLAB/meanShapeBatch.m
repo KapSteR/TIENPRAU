@@ -1,23 +1,24 @@
-function [S0] = meanShapeBatch = ( S )
+function [S0] = meanShapeBatch( S, metaData, no_subjects )
 
 sumShape = zeros(size(S{1}{1}{1}));
 nShapes = 0;
 
 % For all subjects in database
-	for subject = 1:no_subjects
+for subject = 1:no_subjects
 
-		% For all sequences pertaining to the subject
-		for sequence = 1:metaData(subject).no_seq
+	% For all sequences pertaining to the subject
+	for sequence = 1:metaData(subject).no_seq
 
-			% For all frames in a sequence
-			for frame = 1:metaData(subject).no_frames(sequence);
+		% For all frames in a sequence
+		for frame = 1:metaData(subject).no_frames(sequence);
 
-				sumShape = sumShape = S{subject}{sequence}{frame};
-				N = N + 1;
+			sumShape = sumShape + S{subject}{sequence}{frame};
+			nShapes = nShapes + 1;
 
-			end
 		end
 	end
 end
 
 S0 = sumShape./nShapes;
+
+end
