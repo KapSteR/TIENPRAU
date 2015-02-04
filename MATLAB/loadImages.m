@@ -1,7 +1,7 @@
 function  [I] = loadImages(DATA_DIR, metaData, subID, seqID)
 
 % Load Images
-OLD_DIR =  cd([DATA_DIR, '\Images');
+OLD_DIR =  cd([DATA_DIR, '\Images']);
 
 cd(metaData(subID).name);
 cd(metaData(subID).sequences{seqID});

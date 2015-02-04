@@ -1,4 +1,4 @@
-function [subject_names, no_subjects, metaData] = readMetaData(DATA_DIR)
+function [no_subjects, metaData] = readMetaData(DATA_DIR)
 
 OLD_DIR = cd([DATA_DIR, 'Frame_Labels\FACS\']);
 
