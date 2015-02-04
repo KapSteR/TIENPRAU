@@ -1,10 +1,8 @@
-function [ S ] = getShapeSequence( subID, seqID )
+function [ S ] = getShapeSequence( subID, seqID, DATA_DIR )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
-DATA_DIR = 'C:\Users\Kasper\Documents\GitHub\TIENPRAU\MATLAB\DataBase\';
-
-MAIN_DIR = cd(DATA_DIR);
+OLD_DIR = cd(DATA_DIR);
 
 % Load AMM landmarks
 cd('AAM_landmarks');
@@ -18,7 +16,7 @@ for frame = 1:info(subID).no_frames(sequence);
     A{frame} = dlmread(filename);
 end
 
-cd(MAIN_DIR);
+cd(OLD_DIR);
 
 end
 
