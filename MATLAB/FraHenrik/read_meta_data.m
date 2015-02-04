@@ -1,6 +1,6 @@
 
-cd(MAIN_DIR);
-cd('Frame_Labels\FACS\');
+% cd(MAIN_DIR);
+cd([DATA_DIR, 'Frame_Labels\FACS\']);
 
 files           = dir;
 subject_names   = {files(3:end).name};

@@ -1,4 +1,4 @@
-
+cd(DATA_DIR)
 % Load AMM landmarks
 cd('AAM_landmarks');
 cd(info(subject).name);
@@ -9,7 +9,7 @@ for frame = 1:info(subject).no_frames(sequence);
     filename = files(frame).name;
     A{frame} = dlmread(filename);
 end
-cd(MAIN_DIR);
+cd(DATA_DIR);
 
 % Load Images
 cd('Images');
