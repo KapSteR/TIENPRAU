@@ -36,49 +36,51 @@ addpath(pwd); % Add current folder to path
     %     cd('..');
     % end
 
+[A, numFramesTotal] = getShapesBatchMatrix( DATA_DIR, metaData, no_subjects );
 
+    % cd(DATA_DIR);
 
-cd(DATA_DIR);
+    % % Load AMM landmarks
+    % cd('AAM_landmarks');
+    % ix = 1;
+    % for subject = 1 %:length(info)
+    %     subject
+    %     cd(info(subject).name);
+    %     for sequence = 1 %:info(subject).no_seq
+    %         cd(info(subject).sequences{sequence})
+    %         files = dir;
+    %         files = files(3:end);
+    %         for frame = 1:60:length(files) %info(subject).no_frames(sequence);
+    %             filename = files(frame).name;
+    %             xy = dlmread(filename);
+    %             A(:,ix) = xy(:);
+    %             ix = ix + 1;
+    %         end
+    %         cd('..')
+    %     end
+    %     cd('..')
+    % end
+    % cd('..')
 
-% Load AMM landmarks
-cd('AAM_landmarks');
-ix = 1;
-for subject = 1 %:length(info)
-    subject
-    cd(info(subject).name);
-    for sequence = 1 %:info(subject).no_seq
-        cd(info(subject).sequences{sequence})
-        files = dir;
-        files = files(3:end);
-        for frame = 1:60:length(files) %info(subject).no_frames(sequence);
-            filename = files(frame).name;
-            xy = dlmread(filename);
-            A(:,ix) = xy(:);
-            ix = ix + 1;
-        end
-        cd('..')
-    end
-    cd('..')
-end
-cd('..')
+[I] = loadImagesBatch(DATA_DIR, metaData, numFramesTotal);
 
-% Load Images
-clear I
-cd('Images');
-ix = 1;
-for subject = 1 %:length(info)
-    cd(info(subject).name);
-    for sequence = 1 %:info(subject).no_seq
-        cd(info(subject).sequences{sequence})
-        files = dir;
-        files = files(3:end);
-        for frame = 1:60:length(files) %info(subject).no_frames(sequence);
-            filename = files(frame).name;
-            I{ix} = imread(filename);
-            ix = ix + 1;
-        end
-    end
-end
+    % % Load Images
+    % clear I
+    % cd('Images');
+    % ix = 1;
+    % for subject = 1 %:length(info)
+    %     cd(info(subject).name);
+    %     for sequence = 1 %:info(subject).no_seq
+    %         cd(info(subject).sequences{sequence})
+    %         files = dir;
+    %         files = files(3:end);
+    %         for frame = 1:60:length(files) %info(subject).no_frames(sequence);
+    %             filename = files(frame).name;
+    %             I{ix} = imread(filename);
+    %             ix = ix + 1;
+    %         end
+    %     end
+    % end
 
 % AMM
 amm_path = 'C:\Users\Kasper\Documents\MATLAB\Toolboxes\ActiveModels_version7';
