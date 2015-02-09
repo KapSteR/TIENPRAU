@@ -26,7 +26,6 @@ end
 
 Z = S;
 
-
 for i = 1:n_iters
 
 	% For all subjects in database

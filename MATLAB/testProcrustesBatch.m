@@ -11,7 +11,7 @@ load('AllShapesAlign');
 disp('Init done');
 toc
 
-subject = 2;
+subject = 5;
 sequence = 3;
 
 I = loadImages(DATA_DIR, metaData, subject, sequence);
@@ -21,7 +21,7 @@ toc
 
 % Display
 figure(1)
-% pause
+pause
 for frame = 1:metaData(subject).no_frames(sequence);
 	subplot(1,2,1)
     imshow(I{frame})
