@@ -1,4 +1,4 @@
-function [ A, numFramesTotal ] = getShapesBatchMatrix( DATA_DIR, metaData, no_subjects )
+function [ S, numFramesTotal ] = getShapesBatchMatrix( DATA_DIR, metaData, no_subjects )
 %UNTITLED2 Summary of this function goes here
 % 	Load AMM landmarks
 
@@ -24,7 +24,7 @@ for subject = 1:no_subjects
 		% For all frames in a sequence
 		for frame = 1:nFrames;
 		    filename = files(frame).name;
-		    S{subject}{sequence}{frame} = dlmread(filename);
+		    A{subject}{sequence}{frame} = dlmread(filename);
 		end
 
 		numFramesTotal = numFramesTotal + nFrames
@@ -34,18 +34,18 @@ for subject = 1:no_subjects
 	cd('..')
 end
 
-A = zeros([size(S{1}{1}{1}), numFramesTotal]);
+S = zeros([size(A{1}{1}{1}), numFramesTotal]);
 idx = 1;
 
-for subject = 1:numel(S)
+for subject = 1:numel(A)
 
 	% For all sequences pertaining to the subject
-	for sequence = 1:numel(S{subject})
+	for sequence = 1:numel(A{subject})
 
 		% For all frames in a sequence
-		for frame = 1:numel(S{subject}{sequence})
+		for frame = 1:numel(A{subject}{sequence})
 
-			A(:,:,idx) = S{subject}{sequence}{frame};
+			S(:,:,idx) = A{subject}{sequence}{frame};
 			idx = idx + 1;
 
 		end

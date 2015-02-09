@@ -1,24 +1,10 @@
-function  [I] = loadImagesBatch(DATA_DIR, metaData, numFramesTotal)
+function  [I] = loadImagesBatch(DATA_DIR, metaData, no_subjects, numFramesTotal)
 
 % Load Images
 OLD_DIR =  cd([DATA_DIR, '\Images']);
 
-cd(metaData(subID).name);
-cd(metaData(subID).sequences{seqID});
-
-files = dir;
-files = files(3:end);
-
-for frame = 1:metaData(subID).no_frames(seqID);
-
-end
-
-cd(OLD_DIR)
-
-end
-
-I = cell(numFramesTotal,1)
-idx = 0;
+I = cell(numFramesTotal,1);
+idx = 1;
 
 % For all subjects in database
 for subject = 1:no_subjects

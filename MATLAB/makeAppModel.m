@@ -1,9 +1,11 @@
-clear all;
+clear; clc; tic;
 
 MAIN_DIR = 'C:\Users\Kasper\Documents\GitHub\TIENPRAU\MATLAB\';
-DATA_DIR = 'C:\Users\Kasper\Documents\GitHub\TIENPRAU\MATLAB\Database';
-addpath(pwd); % Add current folder to path
+DATA_DIR = 'C:\Users\Kasper\Documents\GitHub\TIENPRAU\MATLAB\Database\';
+% addpath(pwd); % Add current folder to path
+cd(MAIN_DIR);
 
+disp('Read Metadata'); toc;
 [no_subjects, metaData] = readMetaData(DATA_DIR);
 
     % cd(DATA_DIR);
@@ -36,7 +38,9 @@ addpath(pwd); % Add current folder to path
     %     cd('..');
     % end
 
-[A, numFramesTotal] = getShapesBatchMatrix( DATA_DIR, metaData, no_subjects );
+disp('Input Shapes'); toc;
+load('data\RawShapes.mat');
+% [A, numFramesTotal] = getShapesBatchMatrix( DATA_DIR, metaData, no_subjects );
 
     % cd(DATA_DIR);
 
@@ -62,7 +66,11 @@ addpath(pwd); % Add current folder to path
     % end
     % cd('..')
 
-[I] = loadImagesBatch(DATA_DIR, metaData, numFramesTotal);
+% save('data\RawShapes.mat', 'A', 'numFramesTotal');
+
+
+disp('Load Images'); toc;
+[I] = loadImagesBatch(DATA_DIR, metaData, no_subjects, numFramesTotal);
 
     % % Load Images
     % clear I
@@ -82,7 +90,8 @@ addpath(pwd); % Add current folder to path
     %     end
     % end
 
-% AMM
+% AAM
+disp('Make AAM'); toc;
 amm_path = 'C:\Users\Kasper\Documents\MATLAB\Toolboxes\ActiveModels_version7';
 addpath(genpath(amm_path));
 
@@ -95,6 +104,8 @@ for i = 1:10
     p.I = double(I{i})/255;
     save(['dat' num2str(i) '.mat'],'p');
 end
+
+toc
 
 %% Set options
 % Number of contour points interpolated between the major landmarks.
@@ -139,6 +150,8 @@ for i=1:10
 
     end 
 end
+
+toc
 
 Data=cell(1,4);
 for scale=1:options.nscales
@@ -190,3 +203,5 @@ for scale=1:options.nscales
      end
      
 end
+
+toc
