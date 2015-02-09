@@ -27,7 +27,7 @@ for subject = 1:no_subjects
 		    A{subject}{sequence}{frame} = dlmread(filename);
 		end
 
-		numFramesTotal = numFramesTotal + nFrames
+		numFramesTotal = numFramesTotal + nFrames;
 
 		cd('..')
 	end

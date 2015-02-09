@@ -1,22 +1,22 @@
 TODO:
 	Alignment:
-		Translate all shapes to centroid at (0,0)
-		Calculate mean shape
-		Procrustes align all shapes to mean shape
-		Calculate new mean shape
-		Realign all shapes to new mean shape
+		✓ Translate all shapes to centroid at (0,0)
+		✓ Calculate mean shape
+		✓ Procrustes align all shapes to mean shape
+		✓ Calculate new mean shape
+		✓ Realign all shapes to new mean shape
 
 	PCA:
-		Do PCA on all aligned shapes
-		Find significant amount of eigenvectors to describe head movement and head shape variance, but not expression
+		✓ Do PCA on all aligned shapes
+		- Find significant amount of eigenvectors to describe head movement and head shape variance, but not expression
 
 	Warp:
-		Find transformation that best fits mean shape by varying first PCA components
-		Warp images to transformed shape
-			Make Delaunay triangulation of shape
-			Extract convex hull of shape
-			for each triangle
-				Map pixels from original image in PCA transformed shape to the mean shape
+		- Find transformation that best fits mean shape by varying first PCA components
+		- Warp images to transformed shape
+			- Make Delaunay triangulation of shape
+			- Extract convex hull of shape
+			 -for each triangle
+				- Map pixels from original image in PCA transformed shape to the mean shape
 			
 
 
