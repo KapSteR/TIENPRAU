@@ -1,5 +1,6 @@
 %% warpAppToMeanShape: function description
 function [g_warped, object_pixels] = warpAppToMeanShape(I, Z, DT_Z0)
+	%%% NOTE!: Consider doing something about input image
 
 	% Image dimensions
 	[R, C] = size(I);
@@ -36,8 +37,11 @@ function [g_warped, object_pixels] = warpAppToMeanShape(I, Z, DT_Z0)
 	end
 
 	% Assign all pixels to a triangle and locate those outside triangulation
-	g_warped = zeros(R*C, 3); % One row for each pixel, a column each for x, y, value
+	% Perform affine transform of coordinates with respect to the individual triangle
+	
+	newPixels = zeros(R*C, 3); % One row for each pixel, a column each for x, y, value
 	pixelLocation = zeros(R,C);
+	
 	idx = 1	
 	for r = 1:R
 		for c = 1:C
@@ -46,8 +50,8 @@ function [g_warped, object_pixels] = warpAppToMeanShape(I, Z, DT_Z0)
 
 			if not(pixelTraingle == NaN)
 
-				g_warped(idx, [1:2]) = affTrans{pixelTraingle}.transformPointsForward(r, c);
-				g_warped(idx, 3) = I(r,c);
+				newPixels(idx, [1:2]) = affTrans{pixelTraingle}.transformPointsForward(r, c);
+				newPixels(idx, 3) = I(r,c);
 
 			end
 			idx = idx + 1;
@@ -55,12 +59,13 @@ function [g_warped, object_pixels] = warpAppToMeanShape(I, Z, DT_Z0)
 	end
 
 	
+	% Interpolate pixels to fit image grid
 
-	for
+	[xq,yq] = meshgrid(floor(min(Z0,1)):ceil(max(Z0,1)) , floor(min(Z0,2)):ceil(max(Z0,2))); % NOTE: Consider rescaleing here
 
+	g_warped = griddata(newPixels(:,1), newPixels(:,2), newPixels(:,3), xq, yq); 
 
-
-
+	
 
 
 
