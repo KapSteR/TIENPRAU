@@ -75,9 +75,13 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 	x_vals = floor(min(Z0,1)):ceil(max(Z0,1));
 	y_vals = floor(min(Z0,2)):ceil(max(Z0,2));
 
+	x_offset = min(x_vals);
+	y_offset = min(y_vals);
+
 	xyq = zeros(numel(x_vals)*numel(y_vals),2);
 
 	inter = scatteredInterpolant(newPixels(:,1), newPixels(:,2), newPixels(:,3));
+	inter.ExtrapolationMethod = 'none'
 
 
 
@@ -109,9 +113,9 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 			% xyq(idx,2) = c;
 			% idx = idx + 1;
 
-			g_warped(idx(1),idx(2)) = inter(r,c);
-			idx(2) = idx(2) + 1;
-			% g_warped(idx) = inter(r,c);
+			% g_warped(idx(1),idx(2)) = inter(r,c);
+			% idx(2) = idx(2) + 1;
+			g_warped(r-x_offset+1, c-y_offset+1) = inter(r,c);
 		
 		end
 		idx(1) = idx(1) + 1;
