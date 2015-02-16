@@ -56,7 +56,7 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 				[x, y] = affTrans{pixelTraingle}.transformPointsForward(r, c);
 				newPixels(idx, 1) = x; 
 				newPixels(idx, 2) = y;
-				newPixels(idx, 3) = I(r,c);
+				newPixels(idx, 3) = I(c,r); % REMEMBER: x-vals are col numbers, y-vals are row number
 
 			else
 				remove = [remove, idx];
@@ -72,8 +72,8 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 
 	
 	% Interpolate pixels to fit image grid
-	x_vals = floor(min(Z0,1)):ceil(max(Z0,1));
-	y_vals = floor(min(Z0,2)):ceil(max(Z0,2));
+	x_vals = floor(min(Z0(:,2))):ceil(max(Z0(:,2)));
+	y_vals = floor(min(Z0(:,1))):ceil(max(Z0(:,1)));
 
 	x_offset = min(x_vals);
 	y_offset = min(y_vals);
@@ -115,7 +115,7 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 
 			% g_warped(idx(1),idx(2)) = inter(r,c);
 			% idx(2) = idx(2) + 1;
-			g_warped(r-x_offset+1, c-y_offset+1) = inter(r,c);
+			g_warped(r-x_offset+1, c-y_offset+1) = inter(c,r);
 		
 		end
 		idx(1) = idx(1) + 1;
