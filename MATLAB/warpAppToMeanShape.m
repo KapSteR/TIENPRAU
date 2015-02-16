@@ -1,12 +1,9 @@
 %% warpAppToMeanShape: function description
-function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, DT_Z0, objectPixels)
+function [g_warped] = warpAppToMeanShape(I, Z, DT_Z0, objectPixels)
 	%%% NOTE!: Consider doing something about input image
 
 	% Image dimensions
 	[R, C] = size(I);
-
-	% Shape dimensions
-	[n, m] = size(Z);
 
 	% Number of output pixels
 	nOutVector = size(objectPixels,1);
@@ -39,10 +36,10 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, DT_Z0, objectPixe
 	% Perform affine transform of coordinates with respect to the individual triangle
 	
 	newPixels = zeros(R*C, 3); % One row for each pixel, a column each for x, y, value
-	pixelLocation = zeros(R,C);
 	
 	idx = 1	;
-	remove = [];
+	nRemove = 0;
+	remove = zeros(R*C,1);
 	for r = 1:R
 		for c = 1:C
 
@@ -56,7 +53,8 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, DT_Z0, objectPixe
 				newPixels(idx, 3) = I(c,r); % REMEMBER: x-vals are col numbers, y-vals are row number
 
 			else
-				remove = [remove, idx];
+				remove(nRemove +1 ) = idx;
+				nRemove = nRemove + 1;
 
 			end
 
@@ -64,18 +62,18 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, DT_Z0, objectPixe
 		end
 	end
 
-	newPixels(remove,:) = [];
+	newPixels(remove(1:nRemove),:) = [];
 
 	
 	% Interpolate pixels to fit image grid
 	inter = scatteredInterpolant(newPixels(:,1), newPixels(:,2), newPixels(:,3));
-	inter.ExtrapolationMethod = 'none'
+	inter.ExtrapolationMethod = 'linear';
 
 	g_warped = zeros(nOutVector, 1);
 
 	for idx = 1:nOutVector
 
-		g_warped = inter(objectPixels(idx,:))
+		g_warped(idx) = inter(objectPixels(idx,:));
 
 	end
 
