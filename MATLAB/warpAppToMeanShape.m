@@ -1,5 +1,5 @@
 %% warpAppToMeanShape: function description
-function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
+function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, DT_Z0, objectPixels)
 	%%% NOTE!: Consider doing something about input image
 
 	% Image dimensions
@@ -8,11 +8,8 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 	% Shape dimensions
 	[n, m] = size(Z);
 
-	if not(size(Z) == size(Z0))
-
-		error('Z and Z0 not same size');
-
-	end
+	% Number of output pixels
+	nOutVector = size(objectPixels,1);
 
 	DT_new = triangulation(DT_Z0.ConnectivityList, Z); % Make new triangulation based on mean 
 
@@ -63,7 +60,6 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 
 			end
 
-
 			idx = idx + 1;
 		end
 	end
@@ -72,61 +68,15 @@ function [g_warped, x_vals, y_vals] = warpAppToMeanShape(I, Z, Z0, DT_Z0)
 
 	
 	% Interpolate pixels to fit image grid
-	x_vals = floor(min(Z0(:,2))):ceil(max(Z0(:,2)));
-	y_vals = floor(min(Z0(:,1))):ceil(max(Z0(:,1)));
-
-	x_offset = min(x_vals);
-	y_offset = min(y_vals);
-
-	xyq = zeros(numel(x_vals)*numel(y_vals),2);
-
 	inter = scatteredInterpolant(newPixels(:,1), newPixels(:,2), newPixels(:,3));
 	inter.ExtrapolationMethod = 'none'
 
+	g_warped = zeros(nOutVector, 1);
 
+	for idx = 1:nOutVector
 
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%TODO :
+		g_warped = inter(objectPixels(idx,:))
 
-	% Find list of pixel positions for mean shape mask
-	% Evaluate image at these positios
-		% Output to vector
-	% Make zero matrix the size of image
-	% Input values at pixel position in matrix
-	% show as image
-
-
-
-
-	g_warped = zeros(numel(x_vals), numel(y_vals));
-	% g_warped = zeros(numel(x_vals) * numel(y_vals),1);
-
-	idx = [1,1];
-	% idx = 1;
-
-
-
-	for r = x_vals
-		for c = y_vals
-
-			% xyq(idx,1) = r;
-			% xyq(idx,2) = c;
-			% idx = idx + 1;
-
-			% g_warped(idx(1),idx(2)) = inter(r,c);
-			% idx(2) = idx(2) + 1;
-			g_warped(r-x_offset+1, c-y_offset+1) = inter(c,r);
-		
-		end
-		idx(1) = idx(1) + 1;
-		idx(2) = 1;
-		idx(1)
 	end
-
-	% [xq,yq] = meshgrid(floor(min(Z0,1)):ceil(max(Z0,1)) , floor(min(Z0,2)):ceil(max(Z0,2))); % NOTE: Consider rescaleing here
-
-	% g_warped = griddata(newPixels(:,1), newPixels(:,2), newPixels(:,3), xq, yq); 
-
-	% g_warped = griddata(newPixels(:,1), newPixels(:,2), newPixels(:,3), xyq(:,1), xyq(:,2)); 
 
 end
