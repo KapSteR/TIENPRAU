@@ -60,30 +60,36 @@ g_warped = cell(nFrames,1);
 % Warp images to mean shape
 toc; disp('Warping Images');
 
-nIters = 20;
+nIters = 100;
 % idxList = randperm(nFrames,nIters);
 
-parfor idx = 1:nIters
+for i = 0:49
 
-	% idx = idxList(i);
+	parfor idx = (i*nIters)+1:(i+1)*nIters
 
-	% Idir = [DATA_DIR 'Images\042-ll042\ll042t1aaaff\ll042t1aaaff001.png'];
-	I = imread([DATA_DIR, 'Images\', Idir{idx}]);
-	I = rgb2gray(I);
-	I = double(I)./255;
-	% g_warped(idx,:) = warpAppToMeanShape(I, S(:,:,idx), DT_Z0, objectPixels);
-	g_warped{idx} = warpAppToMeanShape(I, S(:,:,idx), DT_Z0, objectPixels);
+		% idx = idxList(i);
 
-	sIdx = num2str(idx);
+		% Idir = [DATA_DIR 'Images\042-ll042\ll042t1aaaff\ll042t1aaaff001.png'];
+		I = imread([DATA_DIR, 'Images\', Idir{idx}]);
+		I = rgb2gray(I);
+		I = double(I)./255;
+		% g_warped(idx,:) = warpAppToMeanShape(I, S(:,:,idx), DT_Z0, objectPixels);
+		g_warped{idx} = warpAppToMeanShape(I, S(:,:,idx), DT_Z0, objectPixels);
 
-	% save(['data\warped_vectors\g_warped', sIdx, '.mat'], 'g_warped', 'idx');
+		sIdx = num2str(idx);
 
-	% toc; 
-	disp(['Image ' , sIdx, ' of ', num2str(nFrames), ': Done']);
+		% save(['data\warped_vectors\g_warped', sIdx, '.mat'], 'g_warped', 'idx');
+
+		% toc; 
+		
+
+	end
+	toc; disp(['Image ' , sIdx, ' of ', num2str(nFrames), ': Done']);
+	save('data\warped_vectors\g_warped.mat', 'g_warped');
 
 end
 
-save('data\warped_vectors\g_warped.mat', 'g_warped');
+
 
 disp('Finished!');
 
