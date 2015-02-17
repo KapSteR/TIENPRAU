@@ -64,7 +64,7 @@ toc; disp('Warping Images');
 nIters = 100;
 % idxList = randperm(nFrames,nIters);
 
-for i = 0:79
+for i = 0:50
 
 	parfor idx = (i*nIters)+1:(i+1)*nIters
 
@@ -87,7 +87,7 @@ for i = 0:79
 
 	end
 	toc; disp(['Image ' , num2str((i+1)*nIters), ' of ', num2str(nFrames), ': Done']);
-	% save('data\warped_vectors\g_warped.mat', 'g_warped');
+	save('data\warped_vectors\g_warped.mat', 'g_warped', 'errorIdx');
 
 end
 
