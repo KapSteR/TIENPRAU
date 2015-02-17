@@ -36,7 +36,7 @@ objectPixels = zeros(numel(x_vals)*numel(y_vals),2);
 
 % For each pixel in bounding box of mean shape
 	% Determine if pixel is inside shape (pointLoacation != NaN)
-	% Append coordinates inside shape to objectPixels array
+	% Ap errpend coordinates inside shape to objectPixels array
 
 nGrayVec = 0;
 for c = x_vals
@@ -56,6 +56,7 @@ save('data\warped_vectors\g_warped_metaData.mat', 'DT_Z0', 'objectPixels', 'nFra
 
 % g_warped = zeros(nFrames, size(objectPixels, 1));
 g_warped = cell(nFrames,1);
+errorIdx = cell(nFrames,1);
 
 % Warp images to mean shape
 toc; disp('Warping Images');
@@ -63,7 +64,7 @@ toc; disp('Warping Images');
 nIters = 100;
 % idxList = randperm(nFrames,nIters);
 
-for i = 0:49
+for i = 0:79
 
 	parfor idx = (i*nIters)+1:(i+1)*nIters
 
@@ -74,22 +75,21 @@ for i = 0:49
 		I = rgb2gray(I);
 		I = double(I)./255;
 		% g_warped(idx,:) = warpAppToMeanShape(I, S(:,:,idx), DT_Z0, objectPixels);
-		g_warped{idx} = warpAppToMeanShape(I, S(:,:,idx), DT_Z0, objectPixels);
 
-		sIdx = num2str(idx);
+		try
+			g_warped{idx} = warpAppToMeanShape(I, S(:,:,idx), DT_Z0, objectPixels);
 
-		% save(['data\warped_vectors\g_warped', sIdx, '.mat'], 'g_warped', 'idx');
+		catch err
 
-		% toc; 
-		
+			errorIdx{idx} = err;
+
+		end
 
 	end
-	toc; disp(['Image ' , sIdx, ' of ', num2str(nFrames), ': Done']);
-	save('data\warped_vectors\g_warped.mat', 'g_warped');
+	toc; disp(['Image ' , num2str((i+1)*nIters), ' of ', num2str(nFrames), ': Done']);
+	% save('data\warped_vectors\g_warped.mat', 'g_warped');
 
 end
-
-
 
 disp('Finished!');
 
