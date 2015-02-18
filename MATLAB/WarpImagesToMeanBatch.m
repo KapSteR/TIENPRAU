@@ -54,11 +54,11 @@ objectPixels = objectPixels(1:nGrayVec,:);
 
 % save('data\warped_vectors\g_warped_metaData.mat', 'DT_Z0', 'objectPixels', 'nFrames','x_vals', 'y_vals');
 load('data\warped_vectors\g_warped_metaData.mat');
-load('data\warped_vectors\g_warped2')
+% load('data\warped_vectors\g_warped2')
 
 % g_warped = zeros(nFrames, size(objectPixels, 1));
-% g_warped = cell(nFrames,1);
-% errorIdx = cell(nFrames,1);
+g_warped = cell(nFrames,1);
+errorIdx = cell(nFrames,1);
 
 % Warp images to mean shape
 toc; disp('Warping Images');
@@ -68,7 +68,8 @@ nIters = 100;
 
 % for i = 0:50
 % for i = 51:70
-for i = 71:99
+% for i = 71:99
+for i = 100:119
 
 	parfor idx = (i*nIters)+1:(i+1)*nIters
 
@@ -91,7 +92,7 @@ for i = 71:99
 
 	end
 	toc; disp(['Image ' , num2str((i+1)*nIters), ' of ', num2str(nFrames), ': Done']);
-	save('data\warped_vectors\g_warped3.mat', 'g_warped', 'errorIdx');
+	save('data\warped_vectors\g_warped4.mat', 'g_warped', 'errorIdx');
 
 end
 
