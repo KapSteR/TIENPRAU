@@ -69,9 +69,14 @@ nIters = 100;
 % for i = 0:50
 % for i = 51:70
 % for i = 71:99
-for i = 100:119
+% for i = 100:119
+% for i = 120:159
+% for i = 160:250
+% for i = 251:299
+for i = 1:1 % final
 
-	parfor idx = (i*nIters)+1:(i+1)*nIters
+	% parfor idx = (i*nIters)+1:(i+1)*nIters
+	parfor idx = 30001:nFrames
 
 		% idx = idxList(i);
 
@@ -90,14 +95,16 @@ for i = 100:119
 
 		end
 
+		disp(['Image ' , num2str(idx), ' of ', num2str(nFrames), ': Done']);
+
 	end
-	toc; disp(['Image ' , num2str((i+1)*nIters), ' of ', num2str(nFrames), ': Done']);
-	save('data\warped_vectors\g_warped4.mat', 'g_warped', 'errorIdx');
+	% toc; disp(['Image ' , num2str((i+1)*nIters), ' of ', num2str(nFrames), ': Done']);
+	save('data\warped_vectors\g_warped8.mat', 'g_warped', 'errorIdx');
 
 end
 
-disp('Finished!');
+toc; disp('Finished!');
 
-toc
+
 
 

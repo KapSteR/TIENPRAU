@@ -159,3 +159,4 @@ proguard/
 /**/Report/MATLAB.rar
 /**/MATLAB/DAtabase/**
 /**/MATLAB/data/**
+/**/MATLAB/ProcessedData/**
