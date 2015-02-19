@@ -36,10 +36,10 @@ dataVector{remove,:} = [];
 dataMatrix = cell2mat(dataVector);
 % targetVector = cell2mat(target);
 
-save('ProcessedData\dataMatrix.mat', 'dataMatrix');
+nFrames_total = size(dataMatrix,1);
+
+save('ProcessedData\dataMatrix.mat', 'dataMatrix', 'nFrames_total');
 % save('ProcessedData\targetVector', 'targetVector');
-
-
 
 
 
