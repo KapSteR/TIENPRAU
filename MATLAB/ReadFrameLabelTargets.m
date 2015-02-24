@@ -88,6 +88,6 @@ end
 
 targetLabel(remove,:) = [];
 
-save('ProcessedData\targetLabel.mat');
+save('ProcessedData\targetLabel.mat', 'targetLabel');
 
 toc; disp('Finished!');
