@@ -68,7 +68,7 @@ libsvm_options = [
 	];
 	
 model = svmtrain(trainingTarget, trainingData , libsvm_options);
-
+ 
 toc; disp('Testing model');
 [predicted_label, accuracy, prob_estimates] = svmpredict(testTarget, testMatrix, model, '-b 1');
 
