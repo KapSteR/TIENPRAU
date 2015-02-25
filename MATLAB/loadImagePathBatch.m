@@ -1,4 +1,4 @@
-function  [Idir, metaData] = loadImagePathBatch(DATA_DIR, numFramesTotal)
+function  [Idir, metaData, nSubjects] = loadImagePathBatch(DATA_DIR, numFramesTotal)
 
 % Load Images
 OLD_DIR =  cd([DATA_DIR, 'Images']);
