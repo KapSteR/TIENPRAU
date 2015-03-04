@@ -20,30 +20,33 @@ faceDetector.MinSize = [100, 100]; % Limit false detection (see Sub: 23) and inc
 
 toc; disp('Detect faces');
 
+figure(1)
+
 subID = 20;
 
-idx = find(cell2mat(Idir(:,2)) == subID ); 
+idxStart = min(find(cell2mat(Idir(:,2)) == subID )); 
+idxEnd = max(find(cell2mat(Idir(:,2)) == subID )); 
 
-for i = 1:size(idx,1)
+parfor idx = idxStart:idxEnd
 
-	I = imread([DATA_DIR, 'Images\', Idir{idx(i),1}]);
+	I = imread([DATA_DIR, 'Images\', Idir{idx,1}]);
 
 	bboxes = step(faceDetector, I);
 
 	IFaces = insertObjectAnnotation(I, 'rectangle', bboxes, 'Face');
 	
-	figure(1)
-	imshow(IFaces)
-	title([
-		'Subject: ', ...
-		num2str(subID), ...
-		' | Sequence: ', ...
-		num2str(Idir{idx(i),3}), ...
-		' of ', ...
-		num2str(metaData(subID).no_seq) ...
-		]);
+	
+	% imshow(IFaces)
+	% title([
+	% 	'Subject: ', ...
+	% 	num2str(subID), ...
+	% 	' | Sequence: ', ...
+	% 	num2str(Idir{idx,3}), ...
+	% 	' of ', ...
+	% 	num2str(metaData(subID).no_seq) ...
+	% 	]);
 
-	drawnow;
+	% drawnow;
 
 end
 
