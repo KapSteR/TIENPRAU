@@ -33,8 +33,8 @@ testTarget = cell(nTargets,1);
 % nSel = 15000;
 nSel = nFrames;
 testFrac = floor(nSel*0.20);
-% selData = randperm(nFrames,nSel);
-selData = 1:nFrames;
+selData = randperm(nFrames,nSel);
+% selData = 1:nFrames;
 testSel = selData(1:testFrac);
 trainSel = selData(testFrac+1:end);
 
@@ -96,6 +96,8 @@ toc;disp('All models trained');
 
 figure(1)
 
+auc = zeros(nTargets,1);
+
 for targetIdx = 1:nTargets
 
 	[predicted_label{targetIdx}, accuracy{targetIdx}, prob_estimates{targetIdx}] = ...
@@ -113,6 +115,8 @@ title('Area Under Curve for each FACS AU')
 xlabel('AU')
 ylabel('AUC')
 
+
+save('data\compareSVMresults.mat')
 
 toc; disp('Finished!');
 

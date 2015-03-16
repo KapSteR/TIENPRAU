@@ -1,4 +1,28 @@
 TODO:
 	Report sections
 		Introduction
-		
+		theory on pain assessment
+			articles
+			database
+			pain score
+				sequence vs frame
+				subjective score
+				observer score
+				PSPI
+				choice
+
+		C-APP + S-PTS / SVM method
+			results
+			reproduction
+
+		my model
+			full image / no landmarks
+			deep network training
+				inspiration
+					Deep networks in general
+					Saliency article
+
+			setup/model/method
+			results
+
+		conclusion

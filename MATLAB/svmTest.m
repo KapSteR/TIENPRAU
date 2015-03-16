@@ -16,7 +16,7 @@ load('ProcessedData\targetLabel.mat');
 
 nFrames = size(targetLabel,1);
 
-targetVector = zeros(nFrames,1);
+% targetVector = zeros(nFrames,1);
 
 % facsLabelIdx = 10;
 % % idx:		1, 2, 3, 4,  5,  6,  7,  8,  9, 10
