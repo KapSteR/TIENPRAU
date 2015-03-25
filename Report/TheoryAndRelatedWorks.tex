@@ -4,6 +4,10 @@
 \begin{document}
 \section{Theory and Related Works} % (fold)
 	\label{sec:theory_and_related_works}
+	Humans are very good at discerning emotions in others from looking at pictures or sequences of pictures of faces, among these, the sensation of pain.
+	This tells us that there must be visual cues in these, that it is possible to detect and use for classification.
+
+
 
 	\subsection{The UNBC-McMaster Shoulder Pain Expression Archive Database} % (fold)
 		\label{sub:unbc_mcmaster}
@@ -15,6 +19,49 @@
 
 		% subsection unbc_mcmaster_schoulder_pain_database (end)
 
+	\subsection{Related Works} % (fold)
+		\label{sub:related_works}	
+
+		\fxnote{More articles }
+
+		\fxnote{Insert authors name} \cite{Ashraf2009a} use the UNBC database.
+		They use the registered landmarks in the images to make procrustes aligned representations of the faces along with facial appearance, shape normalized using Active Shape Models (ASM) and Active Appearance Models (AAM), as feature vectors.
+		These feature vectors are then used to train a Support Vector Machine (SVM).
+		With this they achieved detection rates of $57.1\%$ to $87.5\%$ for individual FACS AUs and up to $83.9\%$ for binary pain detection.
+
+		In this report I attempt to reproduce these results using the same date and with a similar approach but with my own implementation.
+
+		A major shortfall of the methods described above is that they all \fxnote{Check if this is true when other articles are added} rely on the facial landmarks that are registered with human intervention.
+		Without self implementing a strong and reliable way of automatically registering these, systems like the ones described above are not applicable for use in real-life, real-time applications.
+		Therefore I try a completely different approach in this report. 
+
+		% subsection related_works (end)
+
+	\subsection{Proposed approach} % (fold)
+		\label{sub:proposed_approach}
+		The novel approach in this project is to use only the image data from the UNBC database as input data and only use the metadata for ground truth labeling of the training, test and validation data.
+
+		The method can be summarized as follows:
+		\begin{enumerate}
+			\item 
+			A Viola-Jones detector \fxnote{Reference?} will be used to locate the face in the images.
+			
+			\item 
+			A patch around the face will be extracted.
+
+			\item
+			The extracted patch will be resized to a fixed size eg. $100 \times 100$ or $48 \times 48$ pixels.
+
+			\item
+			The resized patches will be used to train a Convolutional Neural Network (CNN)
+
+		\end{enumerate}
+
+
+		% subsection proposed_approach (end)
+
+
+	
 	% section theory_and_related_works (end)
 
 \end{document}
