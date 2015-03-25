@@ -57,10 +57,21 @@
 
 		\end{enumerate}
 
+		Several ideas for the scope of each classification network exist.
+		One idea is to train a large network with all the data on all types of subject, to have a very generalized model.
+
+		Another is to train a couple of networks one a few stereotypes of subjects ie. males, females, children and perhaps also different age segments separately. This would be less general, but maybe better tuned to the idiosyncrasies of each group.
+
+		A final idea is to train a model on a per subject basis.
+		This would likely not generalize very well to all other subjects.
+		Instead it may be better equipped to handle the sometimes very individual response of subjects to certain levels of pain.
+		\fxnote{Make sure to include something about handicapped/paralyzed subjects} 
+		This idea may be especially relevant in cases with subjects who are mentally handicapped or paralyzed, as their response patterns related to pain are know to deviate from the norm.\fxnote{Reference}
+		For this to work though, it would require that it is possible to train the network with few enough data, that it would be feasible to acquire for each subject.
+		A way of achieving this would be to refine a more general pre-trained network.
+
 
 		% subsection proposed_approach (end)
-
-
 	
 	% section theory_and_related_works (end)
 

@@ -26,3 +26,7 @@ TODO:
 			results
 
 		conclusion
+
+		Appendix:
+			MatConvNet toolbox
+				- Compiling for GPU acceleration
