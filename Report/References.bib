@@ -1,7 +1,8 @@
-@article{Ashraf2009a,
+@article{Ashraf2009,
 abstract = {Pain is typically assessed by patient self-report. Self-reported pain, however, is difficult to interpret and may be impaired or in some circumstances (i.e., young children and the severely ill) not even possible. To circumvent these problems behavioral scientists have identified reliable and valid facial indicators of pain. Hitherto, these methods have required manual measurement by highly skilled human observers. In this paper we explore an approach for automatically recognizing acute pain without the need for human observers. Specifically, our study was restricted to automatically detecting pain in adult patients with rotator cuff injuries. The system employed video input of the patients as they moved their affected and unaffected shoulder. Two types of ground truth were considered. Sequence-level ground truth consisted of Likert-type ratings by skilled observers. Frame-level ground truth was calculated from presence/absence and intensity of facial actions previously associated with pain. Active appearance models (AAM) were used to decouple shape and appearance in the digitized face images. Support vector machines (SVM) were compared for several representations from the AAM and of ground truth of varying granularity. We explored two questions pertinent to the construction, design and development of automatic pain detection systems. First, at what level (i.e., sequence- or frame-level) should datasets be labeled in order to obtain satisfactory automatic pain detection performance? Second, how important is it, at both levels of labeling, that we non-rigidly register the face? © 2009 Elsevier B.V. All rights reserved.},
 author = {Ashraf, Ahmed Bilal and Lucey, Simon and Cohn, Jeffrey F. and Chen, Tsuhan and Ambadar, Zara and Prkachin, Kenneth M. and Solomon, Patricia E.},
 doi = {10.1016/j.imavis.2009.05.007},
+file = {:C$\backslash$:/Users/Kasper/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Ashraf et al. - 2009 - The painful face - Pain expression recognition using active appearance models.pdf:pdf},
 isbn = {9781595938176},
 issn = {02628856},
 journal = {Image and Vision Computing},
@@ -9,9 +10,24 @@ keywords = {Active appearance models,Automatic facial image analysis,FACS,Facial
 number = {12},
 pages = {1788--1796},
 pmid = {22837587},
+publisher = {Elsevier B.V.},
 title = {{The painful face - Pain expression recognition using active appearance models}},
+url = {http://dx.doi.org/10.1016/j.imavis.2009.05.007},
 volume = {27},
 year = {2009}
+}
+@article{Kaltwang2012,
+abstract = {Automatic pain recognition is an evolving research area with promising applications in health care. In this paper, we propose the first fully automatic approach to continuous pain intensity estimation from facial images. We first learn a set of independent regression functions for continuous pain intensity estimation using different shape (facial landmarks) and appearance (DCT and LBP) features, and then perform their late fusion. We show on the recently published UNBC-MacMaster Shoulder Pain Expression Archive Database that late fusion of the afore-mentioned features leads to better pain intensity estimation compared to feature-specific pain intensity estimation.},
+author = {Kaltwang, Sebastian and Rudovic, Ognjen and Pantic, Maja},
+doi = {10.1007/978-3-642-33191-6\_36},
+file = {:C$\backslash$:/Users/Kasper/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Kaltwang, Rudovic, Pantic - 2012 - Continuous pain intensity estimation from facial expressions.pdf:pdf},
+isbn = {9783642331909},
+issn = {03029743},
+journal = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+pages = {368--377},
+title = {{Continuous pain intensity estimation from facial expressions}},
+volume = {7432 LNCS},
+year = {2012}
 }
 @article{Lenc2014,
 author = {Lenc, A. Vedaldi and K.},
@@ -52,4 +68,15 @@ title = {{The structure, reliability and validity of pain expression: Evidence f
 url = {http://dx.doi.org/10.1016/j.pain.2008.04.010},
 volume = {139},
 year = {2008}
+}
+@inproceedings{Rudovic2011,
+abstract = {Given the facial points extracted from an image of a face in an arbitrary pose, the goal of facial-point-based head-pose normalization is to obtain the corresponding facial points in a predefined pose (e.g., frontal). This involves inference of complex and high-dimensional mappings due to the large number of the facial points employed, and due to differences in head-pose and facial expression. Most regression-based approaches for learning such mappings focus on modeling correlations only between the inputs (i.e., the facial points in a non-frontal pose) and the outputs (i.e., the facial points in the frontal pose), but not within the inputs and the outputs of the model. This makes these models prone to errors due to noise and outliers in test data, often resulting in anatomically impossible facial configurations formed by their predictions. To address this, we propose Shape-constrained Gaussian Process (SC-GP) regression for facial-point-based head-pose normalization. Specifically, a deformable face-shape model is used to learn a face-shape prior, which is placed on both the input and the output of GP regression in order to constrain the model predictions to anatomically feasible facial configurations. Our extensive experiments on both synthetic and real image data show that the proposed approach generalizes well across poses and handles successfully noise and outliers in test data. In addition, the proposed model outperforms previously proposed approaches to facial-point-based head-pose normalization.},
+author = {Rudovic, Ognjen and Pantic, Maja},
+booktitle = {Proceedings of the IEEE International Conference on Computer Vision},
+doi = {10.1109/ICCV.2011.6126407},
+isbn = {9781457711015},
+issn = {1550-5499},
+pages = {1495--1502},
+title = {{Shape-constrained Gaussian process regression for facial-point-based head-pose normalization}},
+year = {2011}
 }

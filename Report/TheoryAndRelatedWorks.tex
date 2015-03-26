@@ -24,12 +24,25 @@
 
 		\fxnote{More articles }
 
-		\fxnote{Insert authors name} \cite{Ashraf2009a} use the UNBC database.
+		\fxnote{Insert authors name} \cite{Ashraf2009} use the UNBC database.
 		They use the registered landmarks in the images to make procrustes aligned representations of the faces along with facial appearance, shape normalized using Active Shape Models (ASM) and Active Appearance Models (AAM), as feature vectors.
 		These feature vectors are then used to train a Support Vector Machine (SVM).
 		With this they achieved detection rates of $57.1\%$ to $87.5\%$ for individual FACS AUs and up to $83.9\%$ for binary pain detection.
 
-		In this report I attempt to reproduce these results using the same date and with a similar approach but with my own implementation.
+		In this report I attempt to reproduce these results using the same data and with a similar approach but with my own implementation.
+
+		\fxnote{Insert names here} \cite{Kaltwang2012} similarly use the UNBC database.
+		They compare the performance of using shape based features (PTS), taken from the registered landmarks, with appearance features.
+		The appearance feature were both 2D Discrete Cosine Transform (DCT) and Local Binary Patterns (LBP).
+		The authors employ Relevance Vector Regression (RVR) to estimate pain for type of feature (shape, DCT and LBP).
+		A fusion of the individual features pain estimates is then made, again using RVR.
+		The authors conclude that appearance based features outperform shape based.
+		They do however believe that improved registration of shape, that compensates for out of plane motion (eg. \cite{Rudovic2011}), would improve performance.
+		Regarding the appearance based feature, the authors state that in most cases the LBP features worked better than DCT features, taken individually.
+
+
+
+
 
 		A major shortfall of the methods described above is that they all \fxnote{Check if this is true when other articles are added} rely on the facial landmarks that are registered with human intervention.
 		Without self implementing a strong and reliable way of automatically registering these, systems like the ones described above are not applicable for use in real-life, real-time applications.
