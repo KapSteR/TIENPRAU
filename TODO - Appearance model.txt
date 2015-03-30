@@ -3,6 +3,10 @@ TODO:
 		Introduction
 		theory on pain assessment
 			articles
+				- Painful face (done)
+				- Continous pain est (done)
+				- saliency
+				- 
 			database
 			pain score
 				sequence vs frame

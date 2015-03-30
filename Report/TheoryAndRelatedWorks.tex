@@ -40,13 +40,14 @@
 		They do however believe that improved registration of shape, that compensates for out of plane motion (eg. \cite{Rudovic2011}), would improve performance.
 		Regarding the appearance based feature, the authors state that in most cases the LBP features worked better than DCT features, taken individually.
 
-
-
-
-
 		A major shortfall of the methods described above is that they all \fxnote{Check if this is true when other articles are added} rely on the facial landmarks that are registered with human intervention.
 		Without self implementing a strong and reliable way of automatically registering these, systems like the ones described above are not applicable for use in real-life, real-time applications.
-		Therefore I try a completely different approach in this report. 
+		Therefore I try a completely different approach in this report.
+
+		An inspiration for this approach is \fxwarning{authors?} \cite{Shen2012a}.
+		In this, the authors predict human eye fixation using deep Convolutional Neural Networks to extract high level features. 
+		This approach does not use human selected features, but instead uses human eye tracking data to learn the high level features that humans fixate on.
+		A similar approach could possibly be tuned to register the same cues that humans use to recognize pain in faces.
 
 		% subsection related_works (end)
 
