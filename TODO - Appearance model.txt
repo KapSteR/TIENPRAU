@@ -3,7 +3,8 @@ TODO:
 		Introduction
 		theory on pain assessment
 			articles
-				- Painful face (done)
+				- Painful data (done)
+				- painful face
 				- Continous pain est (done)
 				- saliency
 				- 
