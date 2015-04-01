@@ -41,32 +41,78 @@
 				\label{par:procrustes_alignment}
 				In order to use the shape data they need to be shifted to a zero mean reference and be normalized with regard to size and rotation, without affecting shape.
 				For this, Procrustes alignment is just what is needed.
+				Procrustes alignments works by aligning sets of points to a common reference (either given, or taken as the mean of the set to be aligned) by a rigid transformation ie. translation, rotation and scale.
 
-				
+				In my project I do this iteratively and by using MATLABs build in \texttt{procrustes} function, like so:
+				\begin{enumerate}
+
+					\item
+					For each shape $S_i$ subtract the mean of all points in $S_i$.
+
+					\item
+					Calculate mean shape $Z_0$, by taking the mean over all shapes $S_i$ for each point $S_{i,j}$.
+
+					\item
+					\label{enum:goto}
+					Align all shapes $S_i$ to $Z_0$ using \texttt{procrustes} to get the aligned shapes $Z_i$.
+
+					\item
+					Calculate the new mean shape $Z_0$ over all shapes $Z_i$ for each point $Z_{i,j}$.
+
+					\item
+					Repeat from step \ref{enum:goto} for as many times as is needed. 
+					A typical stopping criteria is when $Z_0$ stops changing significantly.
+
+				\end{enumerate}
+				Two iterations will typically suffice and is therefore what is used in this project.
 
 				% paragraph procrustes_alignment (end)
 
-
-
-
 			% subsubsection shape_data (end)
+
+
+		\subsubsection{Appearance Data} % (fold)
+			\label{ssub:appearance_data}
+			
+			\fxnote{some text} 
+
+			\paragraph{Delauney Triangulation} % (fold)
+				\label{par:delauney_triangulation}
+				
+				% paragraph delauney_triangulation (end)
+
+
+
+
+
+
+
+			% subsubsection appearance_data (end)
+
+		\subsubsection{Combining Data} % (fold)
+			\label{ssub:combining_data}
+			
+			% subsubsection combining_data (end)
 		
 		% subsection data_pre_processing_and_feature_extraction (end)
+
 
 	\subsection{Experiment 1: Recognizing FACS Action Units} % (fold)
 		\label{sub:experiment_1_recognizing_facs_action_units}
 		
 		% subsection experiment_1_recognizing_facs_action_units (end)
 
+
 	\subsection{Experiment 2: Detecting Pain in faces} % (fold)
 		\label{sub:experiment_2_detecting_pain_in_faces}
 		
 		% subsection experiment_2_detecting_pain_in_faces (end)
 
+
 	\subsection{Discussion} % (fold)
-	\label{sub:discussion}
-	
-	% subsection discussion (end)
+		\label{sub:discussion}
+		
+		% subsection discussion (end)
 
 	% section normalized_appearance_and_shape_method_using_svm (end)
 
