@@ -35,20 +35,67 @@
 		
 		\subsubsection{Pain Score} % (fold)
 			\label{ssub:pain_score}
-			\fxnote{Insert authors name} 
-			
+			The easiest way of labeling the frames in the UNBC database would be to just label all frames in a sequence with the value i subject reports.
+			But there are several problems with this method.
+			Firstly there is the problem of individuals experiencing and reporting pain differently, because there are no common reference.
+			This can be mediated by using the report of an objective observer, with training in evaluating pain.
 
+			The real problem with the method above is that they assume an equal amount of pain through a whole sequence.
+			In reality the level of experienced pain will very throughout the sequence with a peak at some point.
+			The level of this peak is then likely what subjects report.
+			In order to fully utilize all the image data in the database an indication of pain for each frame is needed.
 
+			\fxnote{Insert authors name} have show in \cite{Prkachin1992} that there is a high correlation between certain FACS AUs and the level of experienced pain.
+			They propose Prkachin and Solomon Pain Intensity (PSPI) score (\ref{eq:PSPI}) as a tool for evaluating pain in subject from their facial expression.
+			\begin{equation}
+				\label{eq:PSPI} 
+				PSPI_{score} = 
+					AU4 + \max(AU6,\ AU7) + \max(AU9,\ AU10) + AU43
+			\end{equation}
+			The Action Units account for brow lowering (AU4), orbital tightening (AU6 and AU7),levator contraction (AU9 and AU10) and eye closure (AU43).
+			The values are numerical (0 = absent, 5 = maximum).
+			The value for eye closure (AU43) is binary (0 = open, 1 = closed).
+			This gives the score a scale of $0-16$.
 
-			
+			Because FACS codes are available for each frame, the PSPI score is a good choice for labeling data at the frame level.
+			This is further supported by that fact that we know that the emotions felt in the experiment is pain.
+			Therefore we can with high probability attest the AUs to the pain and not other factors/emotions.
+
 			% subsubsection pain_score (end)
+
+		\subsubsection{Problems With Using the UNBC Database} % (fold)
+			\label{ssub:problems_with_using_the_unbc_database}
+			The UNBC database is a good and important tool for the development of pain recognition systems.
+			It does however leave one wanting at some points.
+
+			Firstly, of the 48398 frames in the database 40029 are frames with no pain at all.
+			And of the ones showing pain most are very low levels (see Figure \ref{fig:HistogramOfPain}).
+			This results is a high a priori probability of no pain in the data.
+
+			\begin{figure}[H]
+				\centering 
+				\includegraphics[width=\textwidth]{HistogramOfPain}
+				\caption{
+					Histogram of PSPI scores in UBNC database. 
+					Figure taken from \cite{Kaltwang2012}
+					}
+				\label{fig:HistogramOfPain}
+			\end{figure}
+
+			Secondly, the database only show subject in pain.
+			This means that without negative examples of other than neutral faces, there is a risk of over-fitting certain features that may be more generally show for a wider range of emotions, leading to false positives.
+			A solutions to this could be as in \cite{florealearning}, where the authors use the UNBC database to learn specific pain related features, but also the more general \emph{Cohn-Kanade AU-Coded Expression Database} \cite{Kanade2000} to ensure better generalization of their model.
+			Such an approach is however beyond the scope of this report.
+
+
+			% subsubsection problems_with_using_the_unbc_database (end)
 
 		% subsection unbc_mcmaster_schoulder_pain_database (end)
 
 	\subsection{Related Works} % (fold)
 		\label{sub:related_works}	
 
-		\fxnote{More articles }
+		\fxnote{More articles?}
 
 		
 		\fxerror{something that ties this to the work on the database mentioned above}

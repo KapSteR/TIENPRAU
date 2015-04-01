@@ -4,8 +4,14 @@
 \begin{document}
 \section{Normalized Appearance and Shape Method Using SVM} % (fold)
 	\label{sec:normalized_appearance_and_shape_method_using_svm}
+	In this section I describe how I tried to reproduce the results of \cite{Lucey2011} by implementing my own algorithm for extracting data and training a linear Support Vector Machine (SVM) using LIBSVM \cite{CC01a}.
 
-	% IDEA
+	The data extracted from the database and used in the experiments are normalized shape and shape normalized appearance (described in greater detail in Section \ref{sub:data_pre_processing_and_feature_extraction} below).
+	Two experiments will be done with these data.
+	One will focus on detecting the presence of FACS Action Units relevant to PSPI model described in Section \ref{ssub:pain_score}.
+	The other will focus only on the detection of pain.
+	Both will experiments will tested using the shape data alone and with shape and appearance data combined.
+
 	% Method
 
 		% Procustes allignment of faces
@@ -20,6 +26,47 @@
 	% My implementaiton
 	% My Results
 	% Discuss, compare and referece results
+
+	\subsection{Data pre-processing and Feature Extraction} % (fold)
+		\label{sub:data_pre_processing_and_feature_extraction}
+
+		\subsubsection{Shape Data} % (fold)
+			\label{ssub:shape_data}
+			The raw shape data consists of \texttt{.txt}-file for each frame with two columns of (x,y) pixel coordinates, 66 points in total each for a specific facial landmark.
+			\fxnote{insert image of facial landmarks, possibly numbered} 
+			These combined make a mask of the facial shape.
+			They are however centered in the corner of the image and shifted, scaled and rotated arbitrarily form subject to subject and from frame to frame because of movement.
+
+			\paragraph{Procrustes Alignment} % (fold)
+				\label{par:procrustes_alignment}
+				In order to use the shape data they need to be shifted to a zero mean reference and be normalized with regard to size and rotation, without affecting shape.
+				For this, Procrustes alignment is just what is needed.
+
+				
+
+				% paragraph procrustes_alignment (end)
+
+
+
+
+			% subsubsection shape_data (end)
+		
+		% subsection data_pre_processing_and_feature_extraction (end)
+
+	\subsection{Experiment 1: Recognizing FACS Action Units} % (fold)
+		\label{sub:experiment_1_recognizing_facs_action_units}
+		
+		% subsection experiment_1_recognizing_facs_action_units (end)
+
+	\subsection{Experiment 2: Detecting Pain in faces} % (fold)
+		\label{sub:experiment_2_detecting_pain_in_faces}
+		
+		% subsection experiment_2_detecting_pain_in_faces (end)
+
+	\subsection{Discussion} % (fold)
+	\label{sub:discussion}
+	
+	% subsection discussion (end)
 
 	% section normalized_appearance_and_shape_method_using_svm (end)
 
