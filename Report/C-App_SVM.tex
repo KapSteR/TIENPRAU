@@ -154,50 +154,80 @@
 					This results in a matrix of xy-coordinates, one row for each pixel.
 
 					\item
-					For each frame a new \emph{triangulation} object is then created using the connectivity list of the Delauney triangulation of the mean shape and the facial landmark points.
-					This new triangulation is not an optimal Delauney triangulation.
-					Instead it is a triangulation of the point in the frame where the triangle connections correspond to that of the Delauney triangulation of the mean shape.
+					For each frame:
+					\begin{enumerate}[label=\Roman*.]
+						\item
+						The image is loaded into MATLAB, converted to gray scale to conserve memory and converted to double-precision form int8 to facilitate calculation.
 
-					
+						\item 
+						A new \emph{triangulation} object is then created using the connectivity list of the Delauney triangulation of the mean shape and the facial landmark points.
+						This new triangulation is not an optimal Delauney triangulation.
+						Instead it is a triangulation of the point in the frame where the triangle connections correspond to that of the Delauney triangulation of the mean shape.
 
+						\item
+						For each triangle in the Delauney triangulation of the mean shape:
+						\begin{enumerate}[label=\roman*.]
+							\item 
+							An affine transformation matrix $\textbf{A}$, from the triangle to the correspond triangle in the new triangulation is calculated.
+							\begin{equation}
+								\label{eq:trans_mat} 
+								\textbf{A} = 
+								\begin{bmatrix}
+									x_{a1} 	& x_{b1}	& x_{c1} \\
+									y_{a1}	& y_{b1} 	& y_{c1} \\
+									1 		& 1 		& 1
+								\end{bmatrix}
+								\bigg/
+								\begin{bmatrix}
+									x_{a2} 	& x_{b2}	& x_{c2} \\
+									y_{a2}	& y_{b2} 	& y_{c2} \\
+									1 		& 1 		& 1
+								\end{bmatrix}
+								=
+								\begin{bmatrix}
+									* & * & 0 \\
+									* & * & 0 \\
+									* & * & 1
+								\end{bmatrix}
+							\end{equation}
+							In (\ref{eq:trans_mat}) $x_{a1}$, $x_{b1}$ and $x_{c1}$ is understood to be the x-coordinates of point $a$, $b$ and $c$, respectively, in the reference triangle.
+							Likewise $y_{a2}$, $y_{b2}$ and $y_{c2}$ is the y-coordinates of point $a$, $b$ and $c$, respectively, in the corresponding triangle.
 
+							\item
+							The transformation matrix $\textbf{A}$ is then used to create a MATLAB \emph{transformationObject} using the \texttt{affine2d} function.
+							This object has methods for handling the mapping of pixel positions with the affine warp.
+						\end{enumerate}
 
+						\item
+						Then for each pixel position inside the new triangulation, the new pixel position is calculated using the appropriate \emph{transformationObject} and is stored along with its intensity.
 
+						\item
+						An interpolation has to be made to map the decimal coordinate value of the warped pixels to the integer grid of an image.
+						This is done by making a MATLAB \emph{scatterdInterpolant} object.
+						This takes all the decimal value positions and intensities of the warped pixel.
+						You then define with interpolation method it is to use.
+						In the project a \emph{linear} interpolation is used.
 
+						\item
+						The \emph{scatterdInterpolant} object can then be evaluated at all the coordinates of \emph{objectPixels} to output a vector of gray scale pixel intensities.
+						
+					\end{enumerate}
 
+					\item
+					It can happen that an error occurs when trying to calculate the transformation matrix $\textbf{A}$.
+					This is typically due to excessive rotation/tilting of the subjects head, causing the matrix division to be impossible.
+					In this case the error is simply logged and the script moves on to the next frame.
+					The number of frames for which errors occur are around a couple hundred out of over 48000 frames.
+					They are therefore deemed negligible and are omitted in further training and test.
 
 				\end{enumerate}
-
-
-				
-				% paragraph implementing_image_warping (end)
-
-			\paragraph{Delauney Triangulation} % (fold)
-				\label{par:delauney_triangulation}
-				
-				% paragraph delauney_triangulation (end)
-
-			\paragraph{Piecewise Affine Warp} % (fold)
-				\label{par:piecewise_affine_warp}
-				
-				% paragraph piecewise_affine_warp (end)
-
-
-
-
-				\subparagraph{subparagraph name} % (fold)
-				\label{subp:subparagraph_name}
-				
-				lalala
-				% subparagraph subparagraph_name (end)
-
 
 			% subsubsection appearance_data (end)
 
 		\subsubsection{Combining Data} % (fold)
 			\label{ssub:combining_data}
 
-			% Vectorization
+				% Vectorization
 			
 			% subsubsection combining_data (end)
 		
