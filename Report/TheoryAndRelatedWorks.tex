@@ -87,6 +87,12 @@
 			A solutions to this could be as in \cite{florealearning}, where the authors use the UNBC database to learn specific pain related features, but also the more general \emph{Cohn-Kanade AU-Coded Expression Database} \cite{Kanade2000} to ensure better generalization of their model.
 			Such an approach is however beyond the scope of this report.
 
+			Finally, there is a lot of frames in the database in which the subjects turn or bow their heads enough to interfere with the processing and classification.
+			This is also documented in \cite{Lucey2012}.
+			The problem is that this was not monitored/recorded in the creation of the database, so it hard to automatically adjust for or ignore.
+			Estimating head pose and correcting for this like in \fxerror{insert citation} is beyond the scope of this report.
+
+
 
 			% subsubsection problems_with_using_the_unbc_database (end)
 

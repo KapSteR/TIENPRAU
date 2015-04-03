@@ -5,7 +5,7 @@ DATA_DIR = 'C:\Users\Kasper\Documents\GitHub\TIENPRAU\MATLAB\DataBase\';
 
 [no_subjects, metaData] = readMetaData(DATA_DIR);
 
-subject = 2;
+subject = 10;
 
 disp('Init done');
 toc
@@ -27,7 +27,7 @@ I = loadImages(DATA_DIR, metaData, subject, sequence);
 disp('Load image done');
 toc
 
-% Display
+%% Display
 figure(1)
 % pause
 for frame = 1:metaData(subject).no_frames(sequence);

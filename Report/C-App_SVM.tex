@@ -107,6 +107,7 @@
 
 			Another strategy what \cite{Lucey2011} and \cite{Ashraf2009} call the \emph{canonical appearance} or \textbf{C-APP}.
 			This method samples the intensities inside the shape bounded by the facial landmarks and warps their position in a non-rigid fashion, to match the mean shape $\textbf{Z}_0$.
+			This method removes more of the spatial variation of the position of features in the resulting image representation, $\textbf{a}_0$
 
 			\begin{figure}[H]
 				\begin{center}
@@ -121,13 +122,55 @@
 				\label{fig:app_strategies}
 			\end{figure}
 			
+			A comparison of the two strategies is shown in Figure \ref{fig:app_strategies}.
+			As \cite{Ashraf2009} rightly notes, it would seem that \textbf{C-APP} removes too much variation, eg. in the case of an eye closure as shown in Figure \ref{fig:app_strategies}.
+			The case is though that \textbf{C-APP} preserves the most important part of this action, because the wrinkles around the eye is still very clear.
+			These serve to distinguish between a \emph{twitch} as a result of pain and a regular blink, which does not result in these wrinkles.
+			This distinction is a common cause for false positives in a pain recognition system.
+			Further, the supposed lost information is conserved if the shape data and appearance is used together.
+
+			In this project the \textbf{C-APP} representation is used.
+
+			\paragraph{Implementing Image Warping} % (fold)
+				\label{par:implementing_image_warping}
+				The non-rigid warp of the facial appearance to the mean shape is done with at piecewise affine transformation.
+				This means segmenting the face into triangles and the for each triangle warping the pixels inside to the corresponding triangle in the reference mean shape.
+				The procedure is implemented as follows:
+				\footnote{
+					This is a general description of the implemented method. 
+					For full MATLAB implementation see files \texttt{WarpImagesToMeanBatch.m} and \texttt{warpAppToMeanShape.m} in Appendix {\ref{sec:code}}
+					}
+				\begin{enumerate}
+					\item
+					The landmark points of the mean face shape needs to be put into a graph that connects all vertices into triangles without overlapping edges.
+					There exists many solutions for this problem, but by making a Delauney triangulation, one can find the single solution that maximizes the smallest angle in all the triangles.
+					This solution tends to avoid \emph{skinny} triangles and is a good fit for this application.
+
+					The Delauney triangulation is made using MATALB's \texttt{delaunayTriangulation} function.
+					It takes a set of points as input and returns a \emph{triangulation} object, which contain information about which vertices are connected in triangles (also called a \emph{Connectivity List}), and methods to determine in which triangle a certain point is inside.
+
+					\item
+					\emph{objectPixels} is determined by evaluating which pixel position is not inside any triangle of the Delauney triangulation of the mean shape.
+					This results in a matrix of xy-coordinates, one row for each pixel.
+
+					\item
+					For each frame a new \emph{triangulation} object is then created using the connectivity list of the Delauney triangulation of the mean shape and the facial landmark points.
+					This new triangulation is not an optimal Delauney triangulation.
+					Instead it is a triangulation of the point in the frame where the triangle connections correspond to that of the Delauney triangulation of the mean shape.
+
+					
 
 
-			\fxnote{some text}
-			% Need for common shape
-			% How to preserve appearance
-			% Something with eyes
-			% OWN IMPLENTATION 
+
+
+
+
+
+				\end{enumerate}
+
+
+				
+				% paragraph implementing_image_warping (end)
 
 			\paragraph{Delauney Triangulation} % (fold)
 				\label{par:delauney_triangulation}
@@ -142,7 +185,11 @@
 
 
 
-
+				\subparagraph{subparagraph name} % (fold)
+				\label{subp:subparagraph_name}
+				
+				lalala
+				% subparagraph subparagraph_name (end)
 
 
 			% subsubsection appearance_data (end)
