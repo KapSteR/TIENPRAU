@@ -48,24 +48,27 @@
 				\begin{enumerate}
 
 					\item
-					For each shape $S_i$ subtract the mean of all points in $S_i$.
+					For each shape $\textbf{S}_i$ subtract the mean of all points in $\textbf{S}_i$.
 
 					\item
-					Calculate mean shape $Z_0$, by taking the mean over all shapes $S_i$ for each point $S_{i,j}$.
+					Calculate mean shape $\textbf{Z}_0$, by taking the mean over all shapes $\textbf{S}_i$ for each point $\textbf{S}_{i,j}$.
 
 					\item
 					\label{enum:goto}
-					Align all shapes $S_i$ to $Z_0$ using \texttt{procrustes} to get the aligned shapes $Z_i$.
+					Align all shapes $\textbf{S}_i$ to $\textbf{Z}_0$ using \texttt{procrustes} to get the aligned shapes $\textbf{Z}_i$.
 
 					\item
-					Calculate the new mean shape $Z_0$ over all shapes $Z_i$ for each point $Z_{i,j}$.
+					Calculate the new mean shape $\textbf{Z}_0$ over all shapes $\textbf{Z}_i$ for each point $\textbf{Z}_{i,j}$.
 
 					\item
 					Repeat from step \ref{enum:goto} for as many times as is needed. 
-					A typical stopping criteria is when $Z_0$ stops changing significantly.
+					A typical stopping criteria is when $\textbf{Z}_0$ stops changing significantly.
 
 				\end{enumerate}
 				Two iterations will typically suffice and is therefore what is used in this project.
+
+				The result is what \cite{Lucey2011} and \cite{Ashraf2009} call the  \emph{similarity normalized shape} or \textbf{S-PTS}.
+				This is a vector of x and y-coordinates $\textbf{s}_n$.
 
 				% paragraph procrustes_alignment (end)
 
@@ -74,12 +77,57 @@
 
 		\subsubsection{Appearance Data} % (fold)
 			\label{ssub:appearance_data}
+			In order to be able to compare and classify the appearance of different subjects with an SVM, the image data from each frame has to be normalized.
+			The representation of image data need to be invariant to several factors:
+			\begin{itemize}
+				\item
+				The subject's face can be in different parts of the image frame.
+
+				\item
+				Subjects' faces can vary in size, both from physical size and from proximity to the camera.
+
+				\item
+				The subject's face can be rotated/tilted sideways as a result of posture and moving the arm.
+
+				\item
+				The background is not uniform and varies from sequence to sequence.
+
+				\item
+				The general shape of a subjects face varies from subject to subject.
+
+			\end{itemize}
+
+			The goal is to sample to image at a set amount of points that maps to a fixed pixel mask, called \emph{objectPixels}.
+			This way the appearance is represented as a vector of pixel intensities, that maps to a common face shape with the background excluded.
 			
+			Two strategies exist for doing this.
+			One \cite{Ashraf2009} calls  \emph{similarity normalized appearance} or \textbf{S-APP}.
+			Here the pixels are sampled inside the shape bounded by the facial landmarks and transformed rigidly according to the Procrustes alignment described in Section \ref{par:procrustes_alignment} above.
+			This method seems to preserve most variation caused by facial actions but also results in more spatial variation of the position of features in the image representation, called $\textbf{a}_n$.
+
+			Another strategy what \cite{Lucey2011} and \cite{Ashraf2009} call the \emph{canonical appearance} or \textbf{C-APP}.
+			This method samples the intensities inside the shape bounded by the facial landmarks and warps their position in a non-rigid fashion, to match the mean shape $\textbf{Z}_0$.
+
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=0.7\textwidth]{C-APP_Example}
+				\end{center}
+				\caption{
+					Example of image representations.
+					Top row: Left, triangulation of raw landmarks. Middle, Procrustes aligned shape. Right, mean shape.
+					Bottom row: Left, raw image. Middle, \textbf{S-APP}. Right, \textbf{C-APP}.
+					Figure taken from \cite{Ashraf2009}.
+					}
+				\label{fig:app_strategies}
+			\end{figure}
+			
+
+
 			\fxnote{some text}
 			% Need for common shape
 			% How to preserve appearance
 			% Something with eyes
-			% OWN IMPLENTATION
+			% OWN IMPLENTATION 
 
 			\paragraph{Delauney Triangulation} % (fold)
 				\label{par:delauney_triangulation}
