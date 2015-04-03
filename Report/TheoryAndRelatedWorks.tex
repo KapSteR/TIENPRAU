@@ -45,7 +45,7 @@
 			The level of this peak is then likely what subjects report.
 			In order to fully utilize all the image data in the database an indication of pain for each frame is needed.
 
-			\fxnote{Insert authors name} have show in \cite{Prkachin1992} that there is a high correlation between certain FACS AUs and the level of experienced pain.
+			\citet{Prkachin1992} have show that there is a high correlation between certain FACS AUs and the level of experienced pain.
 			They propose Prkachin and Solomon Pain Intensity (PSPI) score (\ref{eq:PSPI}) as a tool for evaluating pain in subject from their facial expression.
 			\begin{equation}
 				\label{eq:PSPI} 
@@ -113,7 +113,7 @@
 
 		\fxwarning{painful face article to support the above mentioned claim}
 
-		\fxnote{Insert names here} \cite{Kaltwang2012} similarly use the UNBC database.
+		\citet{Kaltwang2012} similarly use the UNBC database.
 		They compare the performance of using shape based features (PTS), taken from the registered landmarks, with appearance features.
 		The appearance feature were both 2D Discrete Cosine Transform (DCT) and Local Binary Patterns (LBP).
 		The authors employ Relevance Vector Regression (RVR) to estimate pain for type of feature (shape, DCT and LBP).
@@ -126,7 +126,7 @@
 		Without self implementing a strong and reliable way of automatically registering these, systems like the ones described above are not applicable for use in real-life, real-time applications.
 		Therefore I try a completely different approach in this report.
 
-		An inspiration for this approach is \fxwarning{authors?} \cite{Shen2012a}.
+		An inspiration for this approach is \cite{Shen2012a}.
 		In this, the authors predict human eye fixation using deep Convolutional Neural Networks to extract high level features. 
 		This approach does not use human selected features, but instead uses human eye tracking data to learn the high level features that humans fixate on.
 		A similar approach could possibly be tuned to register the same cues that humans use to recognize pain in faces.
