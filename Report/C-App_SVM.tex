@@ -226,13 +226,36 @@
 
 		\subsubsection{Combining Data} % (fold)
 			\label{ssub:combining_data}
+			With the two datasets described in Sections \ref{ssub:shape_data} and \ref{ssub:appearance_data} above, it is possible to make, in total, three datasets, excluding the case of no data.
+			That is:
+			\begin{enumerate}
+				\item
+				\textbf{S-PTS}: 
+				Only the Procrustes aligned shape data.
+				This data is a vector $\textbf{s}_n$ stacking the 66 x-coordinates atop the 66 y-coordinates, resulting in a 132 dimensional feature space.
 
-				% Vectorization
+				\item
+				\textbf{C-APP}:
+				Only the shape normalized \emph{canonical} appearance.
+				This data is a vector $\textbf{a}_0$ of 11646 dimensions that represent the pixel intensities at the coordinates listed in \emph{objectPixels}.
+
+				\item
+				\textbf{S-PTS + C-APP}:
+				A combination of the shape and appearance data.
+				The appearance data vector is stacked on top of the shape data vector to form a 11778 dimensional feature vector
+				\begin{equation}
+					\textbf{x}_{SPTS+CAPP} = 
+						[\textbf{a}_0\ \textbf{s}_n] 
+						\in \mathbb{R}^{11778}
+				\end{equation}
+
+			\end{enumerate}
+
+			These dataset will then be used in the experiments of Sections \ref{sub:experiment_1_recognizing_facs_action_units} and \ref{sub:experiment_2_detecting_pain_in_faces} below.
 			
 			% subsubsection combining_data (end)
 		
 		% subsection data_pre_processing_and_feature_extraction (end)
-
 
 	\subsection{Experiment 1: Recognizing FACS Action Units} % (fold)
 		\label{sub:experiment_1_recognizing_facs_action_units}
