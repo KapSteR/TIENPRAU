@@ -6,15 +6,15 @@ TODO:
 				- Painful data (done)
 				- painful face
 				- Continous pain est (done)
-				- saliency
+				- saliency (done)
 				- 
 			database
 			pain score
-				sequence vs frame
-				subjective score
-				observer score
-				PSPI
-				choice
+				sequence vs frame (done)
+				subjective score (done)
+				observer score (done)
+				PSPI (done)
+				choice (done)
 
 		C-APP + S-PTS / SVM method
 			results

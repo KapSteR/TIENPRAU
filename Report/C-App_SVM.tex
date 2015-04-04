@@ -260,33 +260,129 @@
 	\subsection{Experiment 1: Recognizing FACS Action Units} % (fold)
 		\label{sub:experiment_1_recognizing_facs_action_units}
 		% Something about balanced examples
+		\subsubsection{Purpose and Method} % (fold)
+			\label{ssub:purpose_and_method_ex1}
+			The purpose of this experiment is to see how well a linear SVM can be trained to recognize FACS Action Units from the data described in Section \ref{sub:data_pre_processing_and_feature_extraction}.
+			The way this will be tested is by training a SVM using data from most of the subjects, and then validating against data from one or more other subjects that are not in the training set.
+			The plan was initially to train a binary SVM for each FACS AU and do leave-one-subject-out cross validation on all subjects.
+			This, however, was not possible for the following reasons
+			\begin{enumerate}
+				\item
+				No one subject presents all the FACS Action Units relevant to the PSPI-score.
+				Therefore validating all the classifiers against one control subject is not possible.
 
-		\begin{figure}[H]
-			\begin{center}
-				\includegraphics[]{FACS_AUC_PTS.eps}
-			\end{center}
-			\caption{
-				AUC for \textbf{S-PTS} tested on subjects 1 and 8.
-				SVM Trained on remaining subjects
-				}
-			\label{fig:spts_auc}
-		\end{figure}
+				\item
+				The time is takes to train the 10 SVMs varies between 2 to 6 hours, depending on which dataset is used.
+				Therefore it was not possible for me, within the time frame I have available, to do exhaustive cross-validating.
+			\end{enumerate}
+
+			The solution to this was to do the following:
+			\footnote{See full MATLAB implementation in Appendix \ref{sec:code}: \texttt{compareSVMscore.m}}
+			\begin{itemize}
+				\item
+				Select two subjects to be used as controls for validation, so that examples of all FACS AUs are present in both the training and validation set.
+				I chose subjects 1 and 8 to be in the validation set.
+				The rest are in the training set.
+
+				\item
+				For each FACS AU a set of training data was formed by taking all the positive examples in the training set and an equal number of randomly selected negative examples from training set.
+				This ensured a uniform prior probability, and reduced the amount of data that was used, improving training time.
+
+				\item
+				The classifiers where trained using LIBSVM \cite{CC01a} in MATLAB.
+				The implementation did not utilize the 6-core CPU very well, so the training was done in parallel using MATLABs \texttt{parfor} loops, with each SVM training on a separate thread, 6 at a time.
+
+				\item
+				The classifiers were evaluated by calculating the Receiver Operating Characteristics (ROC) Area Under the Curve (AUC).
+				This relates the rate of True Positives (TP) to the rate of False Positives (FP) over a range of sensitivities, giving an easily comparable result between 0 and 1.
+
+			\end{itemize}
+
+			% subsubsection purpose_and_method (end)
+
+		\subsubsection{Results} % (fold)
+			\label{ssub:results_ex1}
+
+			\paragraph{Recognizing FACS AUs with \textbf{S-PTS} data} % (fold)
+				\label{par:recognizing_facs_aus_with_s-pts}
+				\begin{figure}[H]
+					\begin{center}
+						\includegraphics[]{FACS_AUC_PTS.eps}
+					\end{center}
+					\caption{
+						AUC for \textbf{S-PTS} tested on subjects 1 and 8.
+						SVM Trained on remaining subjects
+						}
+					\label{fig:spts_auc}
+				\end{figure}
+				
+				% paragraph recognizing_facs_aus_with_s-pts (end)
+
+			\paragraph{Recognizing FACS AUs with \textbf{C-APP} data} % (fold)
+				\label{par:recognizing_facs_aus_with_c_app_data}
+				\begin{figure}[H]
+					\begin{center}
+						% \includegraphics[]{FACS_AUC_APP.eps}
+					\end{center}
+					\caption{
+						AUC for \textbf{C-APP} tested on subjects 1 and 8.
+						SVM Trained on remaining subjects
+						}
+					\label{fig:capp_auc}
+				\end{figure}
+
+			\paragraph{Recognizing FACS AUs with \textbf{S-PTS} + \textbf{C-APP} data} % (fold)
+				\label{par:recognizing_facs_aus_with_s_pts_c_app_data}
+				\begin{figure}[H]
+					\begin{center}
+						\includegraphics[]{FACS_AUC_Full.eps}
+					\end{center}
+					\caption{
+						AUC for \textbf{S-PTS} + \textbf{C-APP} tested on subjects 1 and 8.
+						SVM Trained on remaining subjects
+						}
+					\label{fig:full_auc}
+				\end{figure}
+				
+				% paragraph recognizing_facs_aus_with_s_pts_c_app_data (end)
+			
+			% subsubsection results (end)
 		
 		% subsection experiment_1_recognizing_facs_action_units (end)
 
-
 	\subsection{Experiment 2: Detecting Pain in faces} % (fold)
 		\label{sub:experiment_2_detecting_pain_in_faces}
+		\subsubsection{Purpose and Method} % (fold)
+			\label{ssub:purpose_and_method_ex2}
+			
+			% subsubsection purpose_and_method (end)
+
+
+		\subsubsection{Results} % (fold)
+			\label{ssub:results_ex2}
+				
+			% subsubsection results (end)
+		
 		
 		% subsection experiment_2_detecting_pain_in_faces (end)
 
 
 	\subsection{Discussion} % (fold)
 		\label{sub:discussion}
+		\subsubsection{Experiment 1} % (fold)
+			\label{ssub:experiment_1}
+
+			
+			% subsubsection experiment_1 (end)
 		
+		\subsubsection{Experiment 2} % (fold)
+			\label{ssub:experiment_2}
+			
+
+			% subsubsection experiment_2 (end)
+
 		% subsection discussion (end)
 
 	% section normalized_appearance_and_shape_method_using_svm (end)
-
 
 \end{document}
