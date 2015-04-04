@@ -161,3 +161,7 @@ proguard/
 /**/MATLAB/data/**
 /**/MATLAB/ProcessedData/**
 /**/MATLAB/MLSN_v1/**
+
+##### Sublime-text project files ######
+*.sublime-project
+*.sublime-workspace
