@@ -7,6 +7,39 @@
 	In this section I describe how I tried to implement a system for detecting pain in faces using a Convolutional Neural Network.
 	I did not succeed in creating a working proof-of-concept in the time I had available for this project, but I will describe what I tried and what I learned below.
 	\fxnote{Revisit this part when done with the rest} 
+
+	\subsection{CNN Basics} % (fold)
+		\label{sub:cnn_basics}
+		Convolutional Neural Networks are a class of deep Artificial Neural Networks (ANN).
+		A traditional feed-forward ANN consists of layers neurons and biases.
+		These are fully connected by a set of weights that are trained by backpropagation (See Figure \ref{fig:ufldl_ann}).
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\linewidth]{UFLDL_ANN}
+			\end{center}
+			\caption{Illustration of a simple ANN, taken from \cite{ufldl}.}
+			\label{fig:ufldl_ann}
+		\end{figure}
+
+		In CNNs the weights are instead sets of filter kernels that are convolved with the input image, hence the name.
+		This reduces the amount of parameters to train because the weights are shared for all the pixels in an input.
+
+		Between the filter neurons there are typically pooling layers inserted.
+		These serve to further reduce and concentrate the data in the network.
+		They work by nonlinearly sub-sampling the output image of a filter layer by eg. only sampling the pixel of highest intensity in each $2\times2$ pixel patch of the image (See Figure \ref{fig:lisa_cnn}).
+		This also makes them more tolerant to small translations of the input image.
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.8\linewidth]{CNN_example}
+			\end{center}
+			\caption{Illustration of a simple CNN, taken from \cite{LISAlab2015}.}
+			\label{fig:lisa_cnn}
+		\end{figure}
+		
+		The final classification is then done by either an SVM or one or more layers of traditional fully connected ANN layers like shown in Figure \ref{fig:lisa_cnn}.
+
+
+		% subsection cnn_basics (end)
 	
 	\subsection{CNN Libraries/Toolboxes} % (fold)
 		\label{sub:cnn_libraries_toolboxes}
@@ -50,12 +83,19 @@
 
 			% subsubsection caffe (end)
 
-
-
-
 		% subsection cnn_libraries_toolboxes (end)
 
+	\subsection{CNN Architecture} % (fold)
+		\label{sub:cnn_architecture}
+		
 
+		% subsection cnn_architecture (end)
+
+	\subsection{Discussion} % (fold)
+		\label{sub:cnn_discussion}
+		
+
+		% subsection discussion (end)
 
 	% Noget om at det ikke kom til at virke
 		% Hvad intensionen var
