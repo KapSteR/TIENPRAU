@@ -354,35 +354,65 @@
 		\label{sub:experiment_2_detecting_pain_in_faces}
 		\subsubsection{Purpose and Method} % (fold)
 			\label{ssub:purpose_and_method_ex2}
+			This experiment is very similar to Experiment 1 (See Section \ref{ssub:experiment_1}), in both purpose and method.
+			Again a SVM is trained to classify based on the datasets described in Section \ref{sub:data_pre_processing_and_feature_extraction}.
+			The difference here is that in stead of training to detect individual FACS AUs, the SVMs are trained to detect pain, in the form of the PSPI-score.
 			
 			% subsubsection purpose_and_method (end)
 
 
 		\subsubsection{Results} % (fold)
 			\label{ssub:results_ex2}
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[]{PainAUC.eps}
+				\end{center}
+				\caption{
+					Receiver Operating Characteristics curve for the SVMs trained on each data set.\\
+					Area Under the Curve (AUC) given in percent.
+					}
+				\label{fig:pain_auc}
+			\end{figure}
 				
 			% subsubsection results (end)
 		
-		
 		% subsection experiment_2_detecting_pain_in_faces (end)
-
 
 	\subsection{Discussion} % (fold)
 		\label{sub:discussion}
 		\subsubsection{Experiment 1} % (fold)
 			\label{ssub:experiment_1}
+			Comparing the results of this experiment to those of \cite{Lucey2011}, I have not been able to reach the same levels of performance.
+			They see AUCs above random ($50\%$) for all AUs and all datasets.
+			I only see a significant increase over random in for some AU with some datasets, and for some they do not even achieve that.
 
-			% Få data, under defined system
-			% Gray scale vs. color
-			% Compare with article
+			There are however some similarities.
+			Like \cite{Lucey2011} I find that the different data representations have complementary strengths and weaknesses, meaning that some Action Units are better described by shape variation, and some are better described by variation in appearance.
+			I also see that overall performance evens out for the combined dataset, and that AUs that are strongly detected with either shape or appearance data do not necessarily have a strong response with the combined dataset.
 
+			There may be several reasons for why my results differ so much from those of \cite{Lucey2011}.
+			In my experiments the data is converted to gray scale.
+			This is done to reduce the complexity of implementation and the amount of data that needs to be processed and hence processing time.
+			It would seem that they used to full color images, although it does not say explicitly in the article.
+			It may very well be that to much information is lost in converting to gray scale, and that this adversely affects performance.
 
+			As the authors also note, there is a good portion of the samples where out of plane motion is significant.
+			In the scope of this project it has not been possible for me to deal with this, which means that these will likely have interfered with the performance of the classifier, although in what way and to what extent I cannot say say with certainty.
+			A test could be to manually exclude sequences where the subject moves excessively.
+
+			In general there is a problem of availability of data.
+			As noted in Section \ref{ssub:problems_with_using_the_unbc_database}, although the amount samples is large (> 48000) the amount of positive samples is comparatively low (< 8500), most of which are of low intensity.
+			This means that amount of available training examples compared to the dimensionality of the data makes it hard to train a good model, especially for the very high dimensional \textbf{C-APP} and \textbf{S-PTS} + \textbf{C-APP} datasets.
 			
 			% subsubsection experiment_1 (end)
 		
 		\subsubsection{Experiment 2} % (fold)
 			\label{ssub:experiment_2}
-			
+			The results of this experiment show that with this implementation it is not possible to detect pain with a certainty significantly greater than random.
+			This is disappointing since \cite{Lucey2011} and subsequent authors have seen promising results with this approach.
+
+			I believe that many of the same factors as those described in Section \ref{ssub:experiment_1} above are to blame for these results.
+			That being said, I cannot say for sure that there are no errors in my implementation, as there are simply no more time in this project for further experimentation.			
 
 			% subsubsection experiment_2 (end)
 
