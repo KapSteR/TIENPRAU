@@ -5,17 +5,20 @@ TODO: Sunday
  	- CNN Tools (Done)
  	- Purpose and method
  		- Network setup
- 		- Comparasin to LeNet
+ 		- Compassion to LeNet
  		- Reasons
 
  	- "Results"
+ 		- Did not understand output
+ 		- Made inference(?) based on output of second to last layer
+ 		- Very inconclusive results
  	- Discussion
  		- Too little data
  		- Too little time
- 		- Too little CNN experince / Having to learn by doing
+ 		- Too little CNN experience / Having to learn by doing
  		- Autoencoders?
- 		- Hyperparameters?
- 		- Controlong regularisation!
+ 		- Hyper parameters?
+ 		- Controlling regularization!
 
 
 
