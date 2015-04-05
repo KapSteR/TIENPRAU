@@ -1,8 +1,8 @@
 
 TODO: Sunday
  - CNN Section
- 	- CNN basics
- 	- CNN Tools
+ 	- CNN basics (Done)
+ 	- CNN Tools (Done)
  	- Purpose and method
  		- Network setup
  		- Comparasin to LeNet
@@ -41,3 +41,6 @@ TODO: Tuesday
  - Print/Bind Report
  - Hand in Report to Henrik
  - Prepare for exam
+
+
+ (Done)
