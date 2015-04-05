@@ -1,37 +1,43 @@
-TODO:
-	Report sections
-		Introduction
-		theory on pain assessment
-			articles
-				- Painful data (done)
-				- painful face
-				- Continous pain est (done)
-				- saliency (done)
-				- 
-			database
-			pain score
-				sequence vs frame (done)
-				subjective score (done)
-				observer score (done)
-				PSPI (done)
-				choice (done)
 
-		C-APP + S-PTS / SVM method
-			results
-			reproduction
+TODO: Sunday
+ - CNN Section
+ 	- CNN basics
+ 	- CNN Tools
+ 	- Purpose and method
+ 		- Network setup
+ 		- Comparasin to LeNet
+ 		- Reasons
 
-		my model
-			full image / no landmarks
-			deep network training
-				inspiration
-					Deep networks in general
-					Saliency article
+ 	- "Results"
+ 	- Discussion
+ 		- Too little data
+ 		- Too little time
+ 		- Too little CNN experince / Having to learn by doing
+ 		- Autoencoders?
+ 		- Hyperparameters?
+ 		- Controlong regularisation!
 
-			setup/model/method
-			 
 
-		conclusion
 
-		Appendix:
-			MatConvNet toolbox
-				- Compiling for GPU acceleration
+TODO: Monday
+ - Write Appendix
+ 	- GPU Acceleration/Compilation
+ 	- Code for handing in
+ 	- Zip archive for all code (Maybe Visit school)
+
+ - Conclusion
+
+ - Make remaining figures/illustrations
+ 	- Illustration of facial landmarks / Procrustes
+ 	- Illustration of CNNs
+ 	- 
+
+ 	- More ?
+
+ - Proof read
+
+
+TODO: Tuesday
+ - Print/Bind Report
+ - Hand in Report to Henrik
+ - Prepare for exam

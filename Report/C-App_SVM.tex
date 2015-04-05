@@ -10,7 +10,7 @@
 	Two experiments will be done with these data.
 	One will focus on detecting the presence of FACS Action Units relevant to PSPI model described in Section \ref{ssub:pain_score}.
 	The other will focus only on the detection of pain.
-	Both will experiments will tested using the shape data and appearance data alone and with shape and appearance data combined.
+	Both experiments will be done using either the shape data, the appearance data or using shape and appearance data combined.
 
 	% Method
 
@@ -251,7 +251,7 @@
 
 			\end{enumerate}
 
-			These dataset will then be used in the experiments of Sections \ref{sub:experiment_1_recognizing_facs_action_units} and \ref{sub:experiment_2_detecting_pain_in_faces} below.
+			These datasets will then be used in the experiments of Sections \ref{sub:experiment_1_recognizing_facs_action_units} and \ref{sub:experiment_2_detecting_pain_in_faces} below.
 			
 			% subsubsection combining_data (end)
 		
@@ -357,6 +357,7 @@
 			This experiment is very similar to Experiment 1 (See Section \ref{ssub:experiment_1}), in both purpose and method.
 			Again a SVM is trained to classify based on the datasets described in Section \ref{sub:data_pre_processing_and_feature_extraction}.
 			The difference here is that in stead of training to detect individual FACS AUs, the SVMs are trained to detect pain, in the form of the PSPI-score.
+			\footnote{See full MATLAB implementation in Appendix \ref{sec:code}: \texttt{compareSVMscorePain.m}}
 			
 			% subsubsection purpose_and_method (end)
 
