@@ -226,19 +226,48 @@
 		
 		\subsubsection{Experiments} % (fold)
 			\label{ssub:experiments}
-				 
+			First I just ran the example as is, to verify that the installation was correct and to get a sense of how the code works.
+			After some familiarization with the toolbox I started to adapt it my application.
+			The first thing I changed was the amount output feature maps of last convolutional layer from ten to two, to match my binary Pain/No pain classifier.
+
+			I also increased the number of feature maps for all layers.
+			This is because I assume that the task of recognizing pain in images of faces takes a higher capacity than recognizing hand written digits.
+			I kept the basic structure of the net because I do not have much experience with CNNs and opted for a \emph{stick with what you know/know works} strategy.
+
+			The two main experiments I tried to conduct was these:
+			\begin{enumerate}
+				\item
+				Test if I could train a CNN to recognize pain in the face of one subject, by training with the data from all the other subjects.
+
+				\item
+				Test if I could train a CNN to recognize pain in the face of a subject, by training on a small sample of frames from that same subject.
+			\end{enumerate}
+			
 			% subsubsection experiments (end)		 
-
-
 
 		% subsection cnn_method (end)
 	
-
-	
-
-
 	\subsection{Results} % (fold)
 		\label{sub:cnn_results}
+		As described at the top of this section I did not succeed in creating a working proof-of-concept.
+		This is due to several factors, that I will discuss in Section \ref{sub:cnn_discussion} below.
+
+		What I did succeed in was training a network like the one in Listing \ref{lst:cnn_setup} for a couple hundred epochs.
+		It was difficult to make sense of how the output of the network was to be interpreted, and the classification script from the example did not seem to fit my application.
+		There unfortunately exits little documentation for the toolbox, except for the code and the examples.
+		So I tried to make sense of it myself.
+		For each frame the output consisted of two $15\times15$ frames, one for each class.
+		I summed the response for each class, for each frame, and looked at which was bigger to classify the frames.
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=\linewidth]{CNN_Sub10}
+			\end{center}
+			\caption{Classification results for for leave one subject out validation with subject 10}
+			\label{fig:Results_sub10}
+		\end{figure}
+		Figure \ref{fig:Results_sub10} shows the classification results for Subject 10. 
+
+
 
 
 
