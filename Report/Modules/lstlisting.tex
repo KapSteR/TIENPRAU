@@ -1,0 +1,99 @@
+%--------------------------------------------------------------------------%
+%------------------------ Defining of colors ------------------------------%
+%--------------------------------------------------------------------------%
+\usepackage{xcolor}   % Color package
+
+\definecolor{ase_blue}  {RGB}{10, 55,  136}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{darkgreen} {rgb}{0.0,  0.2, 0.13}
+\definecolor{darkblue}  {rgb}{0.0,  0.0, 0.55}
+\definecolor{darkgray}  {rgb}{0.66, 0.66,0.66}
+\definecolor{webblue} {rgb}{0.0,  0.05,0.45}
+\definecolor{MyDarkBlue}{rgb}{0,  0.08,0.45}
+\definecolor{webred}  {rgb}{0.75, 0,   0}
+
+
+%---------------------------------------------------------------------------%
+%------------------------------ LstListing ---------------------------------%
+%---------------------------------------------------------------------------%
+
+% Følgende er til koder.
+%----------------------------------------------------------
+%\begin{lstlisting}[caption=Overskrift på boks, style=Code-C++, label=lst:referenceLabel]
+%public void hello(){}
+%\end{lstlisting}
+%----------------------------------------------------------
+
+% Exstra space
+\usepackage{xspace}
+% Name on the box followed by \xspace will give the name, a space, and the number.
+% Edit title of \codeTitle, if another title is wanted.
+% \newcommand{\codeTitle}{Code snippet\xspace} % HERE
+
+% Packages for lstlisting
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+
+\renewcommand{\lstlistingname}{\codeTitle} % Set the new title of the box
+
+\lstdefinestyle{Code}
+{
+% aboveskip   = {1.5\baselineskip},
+  backgroundcolor = \color{lbcolor},
+  basicstyle    = \small\ttfamily,
+  breakatwhitespace= false,
+  breaklines    = true,
+    columns     = fixed,
+  commentstyle  = \color{darkgreen},
+  emphstyle   = \color{red}\bfseries,
+    extendedchars = true,
+  frame       = lines,
+  framexrightmargin = 0pt, %6pt
+  identifierstyle = \ttfamily,
+  keywordstyle  = \color{darkviolet}\bfseries,
+  lineskip    = 1pt,
+  literate    = {~}{$\sim$}1 {æ}{\ae}1 {ø}{\oe}1 {å}{\aa}1 {Æ}{\AE}1 {Ø}{\OE}1 
+{Å}{\AE}1,
+  morecomment   = [s][\color{lightblue}]{/**}{*/},
+  numbers     = left, % Want numbers? If not, outcomment this line
+  numbersep   = 6pt,
+  numberstyle   = \footnotesize,
+  prebreak    = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+  showstringspaces= false,
+  stepnumber    = 2,
+  stringstyle   = \color{darkblue},
+  tabsize     = 2,
+% upquote     = true,
+}
+
+%Width needed for the frame - this must be 6 pt
+\usepackage{calc}
+
+
+% Styles for different code languages.
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}%
+{\colorbox[cmyk]{0.43, 0.35, 0.35,0.35}{\parbox{\textwidth - \marginparsep}{\hspace{5pt}#1#2#3}}}
+
+\captionsetup[lstlisting]
+{
+  format      = listing,
+  labelfont   = white,
+  textfont    = white, 
+  singlelinecheck = false, 
+  width     = \textwidth - \marginparsep,
+  margin      = 0pt, 
+  font      = {bf,footnotesize}
+}
+
+\lstdefinestyle{Code-C}   {language = C,      style=Code}
+\lstdefinestyle{Code-Java}  {language = Java,     style=Code}
+\lstdefinestyle{Code-C++}   {language = [Visual]C++,style=Code}
+\lstdefinestyle{Code-VHDL}  {language = VHDL,     style=Code}
+\lstdefinestyle{Code-Bash}  {language = Bash,     style=Code}
+\lstdefinestyle{Code-Matlab}{language = Matlab,   style=Code}
+\lstdefinestyle{Code-Prolog}{language = Prolog,   style=Code}
+

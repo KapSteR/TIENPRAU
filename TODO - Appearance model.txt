@@ -1,12 +1,12 @@
 
-TODO: Sunday
+TODO: Monday
  - CNN Section
  	- CNN basics (Done)
  	- CNN Tools (Done)
  	- Purpose and method
- 		- Network setup
- 		- Compassion to LeNet
- 		- Reasons
+ 		- Network setup (Done)
+ 		- Compassion to LeNet (Done)
+ 		- Reasons (Done)
 
  	- "Results"
  		- Did not understand output
@@ -20,30 +20,27 @@ TODO: Sunday
  		- Hyper parameters?
  		- Controlling regularization!
 
+ - Conclusion
 
 
-TODO: Monday
+ 	- 
+
+ 	- More ?
+
+
+
+TODO: Tuesday
  - Write Appendix
  	- GPU Acceleration/Compilation
  	- Code for handing in
  	- Zip archive for all code (Maybe Visit school)
 
- - Conclusion
-
  - Make remaining figures/illustrations
  	- Illustration of facial landmarks / Procrustes
  	- Illustration of CNNs
- 	- 
-
- 	- More ?
-
+ 
  - Proof read
-
-
-TODO: Tuesday
  - Print/Bind Report
  - Hand in Report to Henrik
  - Prepare for exam
-
-
  (Done)

@@ -85,79 +85,154 @@
 
 		% subsection cnn_libraries_toolboxes (end)
 
-		\subsection{Method} % (fold)
-			\label{sub:cnn_method}
-			% Selection of toolbox
-			% Work from example
-			% Different tests
-			The overall idea for my system is described in Section \ref{sub:proposed_approach}.
-			After initial tests with different toolboxes I chose to work with the MatConvNet toolbox from VLfeat for the CNN part of the implementation.
+	\subsection{Method} % (fold)
+		\label{sub:cnn_method}
+		% Selection of toolbox
+		% Work from example
+		% Different tests
+		The overall idea for my system is described in Section \ref{sub:proposed_approach}.
+		After initial tests with different toolboxes I chose to work with the MatConvNet toolbox from VLfeat for the CNN part of the implementation.
+		
+		\subsubsection{Viola-Jones Face Detector} % (fold)
+			\label{ssub:viola_jones_face_detector}
+			A Viola-Jones face detector was implemented in MATLAB using a \emph{CascadeObjectDetector}.\footnote{See Appendix \ref{sec:code} - \texttt{ViolaJonesPatchExtract.m} for full MATLAB implementation.}
+			This was used to locate the face of the subjects in all the frames.
+			For a few of the frames the detector would have detections aside from the actual face eg. small patches around the neck or in the background.
+			Also, sometimes it would not detect a face if subject was wearing glasses.
+			To help with this, a minimum size for detection was set to $100\times100$ pixels.
+			This is easily enough to detect a the actual face, but reject most of the other erroneous detections.
+			After this only a very small amount of frames had erroneous detection.
+			Therefore is was elected to just drop the frames that did not have exactly one detection, in stead of manually going through all the data.
+
+			The location of the face is marked by a simple bounding box of coordinates.
+			The patch within this box is extracted, converted to gray scale and resized to a common size.
+			Both sizes $48\times48$ pixels and $100\times100$ pixels were tried.
+
+			The position, rotation and scale of the face inside this patch could vary.
+			Also the background is not extracted.
+			This is because the plan is to train a robust CNN that adjusts for this itself, making the need for pre-processing in a final application minimal.
+
+			% subsubsection viola_jones_face_detector (end)
+
+		\subsubsection{MatConvNet Data Format} % (fold)
+			\label{ssub:matconvnet_data_format}
+			In order to use the MatConvNet toolbox the data has to be formatted in a certain way.\footnote{See Appendix \ref{sec:code} - \texttt{leaveOneOutData.m} for full MATLAB implementation.}
+			Specifically the data has to be arranged in a layered \texttt{struct} called \texttt{imdb} (see Figure \ref{fig:imdb_struct}).
+			This contains all the image data, the target labels, information on which samples are to be used for training/test/validation, along with some metadata.
+			\begin{figure}[th]
+				\begin{center}
+					\includegraphics[]{imdb_structure}
+				\end{center}
+				\caption{Diagram of image database structure and contents}
+				\label{fig:imdb_struct}
+			\end{figure}
 			
-			\subsubsection{Viola-Jones Face Detector} % (fold)
-				\label{ssub:viola_jones_face_detector}
-				A Viola-Jones face detector was implemented in MATLAB using a \emph{CascadeObjectDetector}.\footnote{See Appendix \ref{sec:code} - \texttt{ViolaJonesPatchExtract.m} for full MATLAB implementation.}
-				This was used to locate the face of the subjects in all the frames.
-				For a few of the frames the detector would have detections aside from the actual face eg. small patches around the neck or in the background.
-				Also, sometimes it would not detect a face if subject was wearing glasses.
-				To help with this, a minimum size for detection was set to $100\times100$ pixels.
-				This is easily enough to detect a the actual face, but reject most of the other erroneous detections.
-				After this only a very small amount of frames had erroneous detection.
-				Therefore is was elected to just drop the frames that did not have exactly one detection, in stead of manually going through all the data.
+			The images has to be arranged in a 4D-matrix.
+			The first two dimensions are the dimensions of the images (Rows/Columns).
+			The next is a singleton dimension.
+			This dimension is used when the input fans out into several feature maps.
+			The last is the numbers of frames (N).
+			\begin{equation}
+				\texttt{imdb.images.data} \in \mathbb{R}^{R\times C\times1\times N} 
+			\end{equation}
+			All image data values are stored as \emph{single}-precision (32-bit) variables.
+			This is typical for CNN data as it greatly increases computational speeds, especially with GPU acceleration.
+			The mean image over all frames is also given as input data.
 
-				The location of the face is marked by a simple bounding box of coordinates.
-				The patch within this box is extracted, converted to gray scale and resized to a common size.
-				Both sizes $48\times48$ pixels and $100\times100$ pixels were tried.
+			\texttt{imdb.images.labels} is a vector of values, either 1 or 2 corresponding to the classes in \texttt{imdb.meta.classes} indicating if a frame is a positive or negative example.
+			Likewise \texttt{imdb.images.set} is a vector of values, either 1, 2  or 3 corresponding to the classes in \texttt{imdb.meta.set} indicating if a frame is to be used for training, for validation or for test.
 
-				The position, rotation and scale of the face inside this patch could vary.
-				Also the background is not extracted.
-				This is because the plan is to train a robust CNN that adjusts for this itself, making the need for pre-processing in a final application minimal.
+			In my case I only use a training and a validation set, and no separate test set.
+			This does not cause any problems.
+			The feature is just there so you can do cross validation on different sets of validation data and still save a separate test set.
 
-				% subsubsection viola_jones_face_detector (end)
+			% subsubsection matconvnet_data_format (end)
 
-			\subsubsection{MatConvNet Data Format} % (fold)
-				\label{ssub:matconvnet_data_format}
-				In order to use the MatConvNet toolbox the data has to be formatted in a certain way.
-				Specifically the data has to be arranged in a layered \texttt{struct} called \texttt{imdb} (see Figure \ref{fig:imdb_struct}).
-				This contains all the image data, the target labels, information on which samples are to be used for training/test/validation, along with some metadata.
-				\begin{figure}[th]
-					\begin{center}
-						\includegraphics[]{imdb_structure}
-					\end{center}
-					\caption{Diagram of image database structure and contents}
-					\label{fig:imdb_struct}
-				\end{figure}
-				
-				The images has to be arranged in a 4D-matrix.
-				The first two dimensions are the dimensions of the images (Rows/Columns).
-				The next is a singleton dimension.
-				This dimension is used when the input fans out into several feature maps.
-				The last is the numbers of frames (N).
-				\begin{equation}
-					\texttt{imdb.images.data} \in \mathbb{R}^{R\times C\times1\times N} 
-				\end{equation}
-				All image data values are stored as \emph{single}-precision (32-bit) variables.
-				This is typical for CNN data as it greatly increases computational speeds, especially with GPU acceleration.
-				The mean image over all frames is also given as input data.
-
-				\texttt{imdb.images.labels} is a vector of values, either 1 or 2 corresponding to the classes in \texttt{imdb.meta.classes} indicating if a frame is a positive or negative example.
-				Likewise \texttt{imdb.images.set} is a vector of values, either 1, 2  or 3 corresponding to the classes in \texttt{imdb.meta.set} indicating if a frame is to be used for training, for validation or for test.
-
-				In my case I only use a training and a validation set, and no separate test set.
-				This does not cause any problems.
-				The feature is just there so you can do cross validation on different sets of validation data and still save a separate test set.
-
-				% subsubsection matconvnet_data_format (end)
-
-				
-
+		\subsubsection{CNN setup} % (fold)
+			\label{ssub:cnn_setup}
 			Being a novice in working with deep learning and CNN I chose to base my implementation on a working example that comes with the toolbox and adapt it to my application.
 
-			The base for my implementation 
+			The example base for my implementation was a network designed by the people behind MatConvNet to be similar to Yann LeCun's \emph{LeNet}.
+			This example was made to classify hand written digits from the well know MNIST database \cite{mnistlecun}.
 
+			The architecture of the net is defined by creating a \emph{struct} called \texttt{net} with fields corresponding to layers
+			(See Listing \ref{lst:cnn_setup} or Appendix \ref{sec:code} - \texttt{cnn\_mnist3.m} for full script).
+			Each layer is itself a \texttt{struct}, that defines its type, dimensions and initialization.
 
+			\newpage
+			\begin{lstlisting}[caption=Example of CNN setup, style=Code-Matlab, label=lst:cnn_setup]
+	f=1/100 ;
+	net.layers = {} ;
+	net.layers{end+1} = struct('type', 'conv', ...
+	                       'filters', f*randn(12,12,1,10, 'single'), ...
+	                       'biases', zeros(1, 10, 'single'), ...
+	                       'stride', 1, ...
+	                       'pad', 0) ;
+	net.layers{end+1} = struct('type', 'pool', ...
+	                       'method', 'max', ...
+	                       'pool', [2 2], ...
+	                       'stride', 2, ...
+	                       'pad', 0) ;
+	net.layers{end+1} = struct('type', 'conv', ...
+	                       'filters', f*randn(8,8,10,25, 'single'),...
+	                       'biases', zeros(1,25,'single'), ...
+	                       'stride', 1, ...
+	                       'pad', 0) ;
+	net.layers{end+1} = struct('type', 'pool', ...
+	                       'method', 'max', ...
+	                       'pool', [2 2], ...
+	                       'stride', 2, ...
+	                       'pad', 0) ;
+	net.layers{end+1} = struct('type', 'conv', ...
+	                       'filters', f*randn(4,4,25,250, 'single'),...
+	                       'biases', zeros(1,250,'single'), ...
+	                       'stride', 1, ...
+	                       'pad', 0) ;
+	net.layers{end+1} = struct('type', 'relu') ;
+	net.layers{end+1} = struct('type', 'conv', ...
+	                       'filters', f*randn(1,1,250,2, 'single'),...
+	                       'biases', zeros(1,2,'single'), ...
+	                       'stride', 1, ...
+	                       'pad', 0) ;
+	net.layers{end+1} = struct('type', 'softmaxloss') ;
 
-			% subsection cnn_method (end)
+			\end{lstlisting}
+
+			Listing \ref{lst:cnn_setup} show the net I ended up using, after much tweaking and playing around with parameters.
+			The net starts with a convolutional layer with one input (the image data), 10 output feature maps and a kernel size of $12\times12$ pixels.
+			Next there is a max-pooling layer with a factor of $2\times2$.
+			Next there is another convolutional layer with 10 input feature maps, 25 output feature maps and a kernel size of $8\times8$ pixels.
+			Next, another max-pooling layer like the one before.
+			Next there is another convolutional layer with 25 input feature maps, 250 output feature maps and a kernel size of $4\times4$ pixels.
+			Next there is a layer Rectified Linear Units, followed by a fully connected convolutional layer.
+			Finally, the last layer is a softmax loss layer.
+			All the convolutional layers are initialized randomly and the biases are set to zero.
+
+			There is also a set of hyper parameters to set before training can begin.
+			These are defined in \texttt{struct} called \texttt{opts.train} as shown in Listing \ref{lst:cnn_hyper}.
+
+			\newpage
+			\begin{lstlisting}[caption=CNN setup hyper parameters, style=Code-Matlab, label=lst:cnn_hyper]
+	opts.train.batchSize = 100 ;
+	opts.train.numEpochs = 1000 ;
+	opts.train.useGpu = false ;
+	% opts.train.useGpu = true ;
+	opts.train.learningRate = 0.0001 ;
+	opts.train.momentum = 0.0;
+	opts.train.weightDecay = 0.005 ;
+			\end{lstlisting}
+
+			% subsubsection cnn_setup (end)
 		
+		\subsubsection{Experiments} % (fold)
+			\label{ssub:experiments}
+				 
+			% subsubsection experiments (end)		 
+
+
+
+		% subsection cnn_method (end)
+	
 
 	
 
