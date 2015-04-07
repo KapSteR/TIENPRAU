@@ -258,26 +258,53 @@
 		So I tried to make sense of it myself.
 		For each frame the output consisted of two $15\times15$ frames, one for each class.
 		I summed the response for each class, for each frame, and looked at which was bigger to classify the frames.
+
 		\begin{figure}[H]
 			\begin{center}
-				\includegraphics[width=\linewidth]{CNN_Sub10}
+				\includegraphics[width=0.8\linewidth]{CNN_Sub10}
 			\end{center}
 			\caption{Classification results for for leave one subject out validation with subject 10}
 			\label{fig:Results_sub10}
 		\end{figure}
-		Figure \ref{fig:Results_sub10} shows the classification results for Subject 10. 
 
+		Figure \ref{fig:Results_sub10} shows the classification results for Subject 10.
+		The \emph{Labels} plot shows the target class and the \emph{Best} plot shows the predicted class, based on the method above.
+		Both plots have been scaled for visibility, but it holds for both that a positive value indicates \emph{pain} and a negative value indicates \emph{no pain}.
+		The \emph{Diff} plot shows the difference in response for the two summed feature maps.
+		Again, a positive value shows a preference for the \emph{pain} class and a negative value shows a preference for the \emph{no pain} class.
 
+		For this classification the confusion matrix is shown in Figure \ref{fig:cnn_conf10}. Here a `1' means \emph{pain} and a `0' mean \emph{no pain}
 
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=\linewidth]{ConfMat_Sub10}
+			\end{center}
+			\caption{Confusion matrix for validation with Subject 10}
+			\label{fig:cnn_conf10}
+		\end{figure}
 
+		The results of Subject 11, who was part of the training set, is also presented in Figures \ref{fig:Results_sub11} and \ref{fig:cnn_conf11}.
 
-		
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.8\linewidth]{CNN_Sub11}
+			\end{center}
+			\caption{Classification results test with subject 11}
+			\label{fig:Results_sub11}
+		\end{figure}
+
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.5\linewidth]{ConfMat_Sub11}
+			\end{center}
+			\caption{Confusion matrix for test with Subject 11}
+			\label{fig:cnn_conf11}
+		\end{figure}
 		% subsection cnn_results (end)
-
 
 	\subsection{Discussion} % (fold)
 		\label{sub:cnn_discussion}
-		
+				
 
 		% subsection discussion (end)
 
