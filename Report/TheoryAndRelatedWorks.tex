@@ -19,7 +19,7 @@
 		\fxnote{Insert image example of sequences} 
 
 		For each image sequence ie. each movement of an arm, the subjects are asked to report, on a scale of $0-10$, their perceived level of pain.
-		An objective observer also evaluates the level of pain the subjects feel.\fxwarning{eh?}
+		An objective observer also evaluates the level of pain the subjects experience.
 		These are used to control for subjective variances in perception and reporting of pain.
 		Both data are available in the database
 
@@ -90,9 +90,7 @@
 			Finally, there is a lot of frames in the database in which the subjects turn or bow their heads enough to interfere with the processing and classification.
 			This is also documented in \cite{Lucey2012}.
 			The problem is that this was not monitored/recorded in the creation of the database, so it hard to automatically adjust for or ignore.
-			Estimating head pose and correcting for this like in \fxerror{insert citation} is beyond the scope of this report.
-
-
+			Estimating head pose and correcting for this like in \cite{Asthana11posenormalization} is beyond the scope of this report.
 
 			% subsubsection problems_with_using_the_unbc_database (end)
 
@@ -100,18 +98,11 @@
 
 	\subsection{Related Works} % (fold)
 		\label{sub:related_works}	
-
-		\fxnote{More articles?}
-
-		
-		\fxerror{something that ties this to the work on the database mentioned above}
 		In \cite{Lucey2011} the creators of the UNBC database use the registered landmarks in the images to make procrustes aligned representations of the faces along with facial appearance, shape normalized using Active Shape Models (ASM) and Active Appearance Models (AAM), as feature vectors.
 		These feature vectors are then used to train a Support Vector Machine (SVM).
 		With this they achieved detection rates of $57.1\%$ to $87.5\%$ for individual FACS AUs and up to $83.9\%$ for binary pain detection.
 
 		In this report I attempt to reproduce these results using the same data and with a similar approach but with my own implementation.
-
-		\fxwarning{painful face article to support the above mentioned claim}
 
 		\citet{Kaltwang2012} similarly use the UNBC database.
 		They compare the performance of using shape based features (PTS), taken from the registered landmarks, with appearance features.
@@ -122,7 +113,7 @@
 		They do however believe that improved registration of shape, that compensates for out of plane motion (eg. \cite{Rudovic2011}), would improve performance.
 		Regarding the appearance based feature, the authors state that in most cases the LBP features worked better than DCT features, taken individually.
 
-		A major shortfall of the methods described above is that they all \fxnote{Check if this is true when other articles are added} rely on the facial landmarks that are registered with human intervention.
+		A major shortfall of the methods described above is that they all rely on the facial landmarks that are registered with human intervention.
 		Without self implementing a strong and reliable way of automatically registering these, systems like the ones described above are not applicable for use in real-life, real-time applications.
 		Therefore I try a completely different approach in this report.
 
@@ -158,14 +149,15 @@
 
 		Another is to train a couple of networks one a few stereotypes of subjects ie. males, females, children and perhaps also different age segments separately. This would be less general, but maybe better tuned to the idiosyncrasies of each group.
 
-		A final idea is to train a model on a per subject basis.
+		A likely use-case for a pain-recognition system, like the one proposed, is for monitoring patients suffering from paralysis or mental handicap, as they may have difficulty in reporting and communicating pain levels by themselves.
+		Additionally, these patients are known to exhibit atypical responses to pain.
+		A final idea is therefore to train a model on a per subject basis.
 		This would likely not generalize very well to all other subjects.
 		Instead it may be better equipped to handle the sometimes very individual response of subjects to certain levels of pain.
-		\fxnote{Make sure to include something about handicapped/paralyzed subjects} 
-		This idea may be especially relevant in cases with subjects who are mentally handicapped or paralyzed, as their response patterns related to pain are know to deviate from the norm.\fxnote{Reference}
 		For this to work though, it would require that it is possible to train the network with few enough data, that it would be feasible to acquire for each subject.
-		A way of achieving this would be to refine a more general pre-trained network.
+		A way of achieving this would be to, instead of training a network from scratch, refine a more general pre-trained network with samples from the subject in question.
 
+		An example of this kind of fine-tuning of a general network is \citeauthor{DBLP:journals/corr/KarayevHWAD13}'s \cite{DBLP:journals/corr/KarayevHWAD13} adaptation of a network, trained to classify objects in the ImageNet database \cite{Deng09imagenet:a}, to instead recognize the \emph{style} of an image.
 
 		% subsection proposed_approach (end)
 	

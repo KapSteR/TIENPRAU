@@ -9,12 +9,110 @@
 
 	% section code (end)
 
-
+\newpage
 \section{GPU Acceleration of CNN training} % (fold)
 	\label{sec:gpu_acceleration_of_cnn_training}
+	The CNN toolbox MatConvNet from \texttt{VLfeat.org} is MATLAB toolbox that is implemented efficiently in C++ and in CUDA for GPU acceleration.
+	In order to use it, it is necessary to compile the code locally.
+	Fortunately the toolbox contains MATLAB scripts that handle all compiling and linking of files for you.
+
+	\subsection{Compiling for CPU} % (fold)
+		\label{sub:compiling_for_cpu}
+		There are some prerequisites to be able to compile the toolbox:
+		\begin{itemize}
+			\item
+			MATLAB version 2013b or higher.
+
+			\item
+			C++ compiler
+			\begin{itemize}
+				\item
+				Microsoft Visual Studio 2010 or newer
+
+				\item
+				Alternatively one can use the Microsoft Visual C++ Redistributable. Both x86 and x64 (32-bit and 64-bit respectively) versions is needed.
+			\end{itemize}
+
+		\end{itemize}
+
+		This will allow you to compile the toolbox for CPU operation. Simple navigate to the directory where your toolbox is unpacked, add the \emph{matlab} folder to the MATLAB path and run the script \texttt{vl\_compilenn} with no arguments
+
+		> \texttt{cd <MatConvNet>}\\
+		> \texttt{addpath matlab}\\
+		> \texttt{vl\_compilenn}\\
+
+		If compilation completes with no errors, call \texttt{vl\_test\_nnlayers} with no arguments to test the compiled code.
+
+		> \texttt{vl\_test\_nnlayers}\\
+
+		% subsection compiling_for_cpu (end)
+
+	\subsection{Compiling for GPU} % (fold)
+		\label{sub:compiling_for_gpu}
+		In order to compile for GPU acceleration there are some further prerequisites.
+		\begin{itemize}
+			\item
+			An NVIDIA GPU with \emph{Compute Capability} of 2.0 or higher. The 600 series and higher should do.
+
+			\item
+			A version of the NVIDIA CUDA Toolkit (Available at \cite{Corporation2015}).
+			The authors of MatConvNet have some recommendation for which version depending on MATLAB version at \cite{Lenc2014}.
+		\end{itemize}
+
+		\newpage
+		To compile for GPU, \texttt{vl\_compilenn} is again called but this time with some arguments.
+
+		> \texttt{vl\_compilenn('enableGpu', true, 'cudaRoot', '/Developer/NVIDIA/CUDA-6.0')}
+
+		This uses MATLAB build-in \texttt{mex} compiler to compile the code. The \texttt{cudaRoot} argument is optional, and tells the script where to find your CUDA toolkit.
+		You may experience problems with this depending on your combination of MATLAB version and CUDA Toolkit.
+		In this case you need to compile using \texttt{nvcc} (NVIDIA CUDA Complier).
+		To do this call \texttt{vl\_compilenn} like this instead:
+
+		> \texttt{vl\_compilenn('enableGpu', true, ...\\
+			\-\hspace{3.05cm}'cudaRoot', '/Developer/NVIDIA/CUDA-6.5', ...\\
+			\-\hspace{3.05cm}'cudaMethod', 'nvcc')}
+
+		Here I did find a problem with the (as of this writing) current version of the toolbox.
+		In the script \texttt{vl\_compilenn} the arguments pertaining to the GPU compute architecture is not send to the compiler when using \texttt{nvcc}.
+		This causes the compiler to compile with full backwards compatibility in mind, causing the process to fail, as some necessary functions are available on old architectures.
+		I solved this by adding a line to the script (See line 305 in Listing \ref{lst:vl_compilenn_exerpt})
+
+		\begin{lstlisting}[caption=Exerpt from \texttt{vl\_compilenn}, style=Code-Matlab, label=lst:vl_compilenn_exerpt]
+300	% For the cudaMethod='nvcc'
+301	if opts.enableGpu && strcmp(opts.cudaMethod,'nvcc')
+302		flags.nvcc = flags.cc ;
+303		flags.nvcc{end+1} = ['-I"' fullfile( ...
+											matlabroot, ...
+											'extern', ...
+											'include') '"'] ;
+304		flags.nvcc{end+1} = ['-I"' fullfile(...
+											matlabroot, ...
+											'toolbox', ...
+											'distcomp', ...
+											'gpu', ...
+											'extern', ...
+											'include') '"'] ;
+305		flags.nvcc{end+1} = opts.cudaArch ; % Correction // KN 2015-03-30
+306		if opts.debug
+307			flags.nvcc{end+1} = '-O0' ;
+308		end
+309		flags.nvcc{end+1} = '-Xcompiler' ;
+310		switch arch
+311			case {'maci64', 'glnxa64'}
+312				flags.nvcc{end+1} = '-fPIC' ;
+313			case 'win64'
+314				flags.nvcc{end+1} = '/MD' ;
+315				check_clpath(); % check whether cl.exe in path
+316		end
+317	end
+			\end{lstlisting}
 
 
+		If you have already compiled for CPU, you may experience some conflicts.
+		If so, you need to delete the contents of the folder \texttt{/matlab/mex} in the toolbox directory.
 
+		% subsection compiling_for_gpu (end)
 
 	% section gpu_acceleration_of_cnn_training (end)
 
