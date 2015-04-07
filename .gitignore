@@ -161,6 +161,10 @@ proguard/
 /**/MATLAB/data/**
 /**/MATLAB/ProcessedData/**
 /**/MATLAB/MLSN_v1/**
+/**/MATLAB/vlfeat-9.20/**
+/**/MATLAB/libsvm-3.20/**
+/**/MATLAB/matconvnet-1.0-beta9/**
+
 
 ##### Sublime-text project files ######
 *.sublime-project
