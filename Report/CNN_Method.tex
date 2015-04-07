@@ -254,7 +254,7 @@
 
 		What I did succeed in was training a network like the one in Listing \ref{lst:cnn_setup} for a couple hundred epochs.
 		It was difficult to make sense of how the output of the network was to be interpreted, and the classification script from the example did not seem to fit my application.
-		There unfortunately exits little documentation for the toolbox, except for the code and the examples.
+		Unfortunately, since the toolbox have only recently been released, there exits little documentation, aside from the code itself and the examples.
 		So I tried to make sense of it myself.
 		For each frame the output consisted of two $15\times15$ frames, one for each class.
 		I summed the response for each class, for each frame, and looked at which was bigger to classify the frames.
@@ -304,8 +304,21 @@
 
 	\subsection{Discussion} % (fold)
 		\label{sub:cnn_discussion}
-				
+		The results of my work with Convolutional Neural Networks for pain recognition can best be described as inconclusive.
+		There is, however, something to take away from the results.
 
+		The classification results from the validation with Subject 10 (Figure \ref{fig:Results_sub10}) show that even though good error rates are not achieved, there seems to be positive correlation between the output of the network and the desired label.
+		This could indicate that with further tweaking/training of the network could perform better.
+		More data may also be necessary to generalize better.
+
+		The same seems to be the case when you look at the results for subject 11 (Figure \ref{fig:Results_sub11}).
+		Here it would also seem that, even though the classification fails completely, the network output curve somewhat tracks the target class.
+		Notice especially the peak around frame 250 and the plateaus around frames 500 and 1250.
+		This could again imply that more training with perhaps more data could could make the net perform better.
+
+		A factor that would likely also improve the performance of the net is greater control over regularization parameters during training, and perhaps the use of a Convolutional Auto-Encoder (CAE) for initialization.
+		I know from looking at the code examples for larger networks, designed for the ImageNet and Cifar databases\fxnote{reference}, that this is possible, but I have not had time within the scope of this project to figure out how this would work this toolbox.
+		This is left as a task for those whom are to continue the work on this project.
 		% subsection discussion (end)
 
 	% Noget om at det ikke kom til at virke

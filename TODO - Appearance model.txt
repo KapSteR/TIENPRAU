@@ -8,7 +8,7 @@ TODO: Monday
  		- Compassion to LeNet (Done)
  		- Reasons (Done)
 
- 	- "Results"
+ 	- "Results"  (Done)
  		- Did not understand output
  		- Made inference(?) based on output of second to last layer
  		- Very inconclusive results
