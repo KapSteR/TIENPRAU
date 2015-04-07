@@ -33,8 +33,8 @@
 
 		\subsubsection{Shape Data} % (fold)
 			\label{ssub:shape_data}
-			The raw shape data consists of \texttt{.txt}-file for each frame with two columns of (x,y) pixel coordinates, 66 points in total each for a specific facial landmark.
-			\fxnote{insert image of facial landmarks, possibly numbered} 
+			The raw shape data consists of \texttt{.txt}-file for each frame with two columns of (x,y) pixel coordinates, 66 points in total each for a specific facial landmark
+			(See Figure \ref{fig:app_strategies}).
 			These combined make a mask of the facial shape.
 			They are however centered in the corner of the image and shifted, scaled and rotated arbitrarily form subject to subject and from frame to frame because of movement.
 
@@ -105,10 +105,7 @@
 			Here the pixels are sampled inside the shape bounded by the facial landmarks and transformed rigidly according to the Procrustes alignment described in Section \ref{par:procrustes_alignment} above.
 			This method seems to preserve most variation caused by facial actions but also results in more spatial variation of the position of features in the image representation, called $\textbf{a}_n$.
 
-			Another strategy what \cite{Lucey2011} and \cite{Ashraf2009} call the \emph{canonical appearance} or \textbf{C-APP}.
-			This method samples the intensities inside the shape bounded by the facial landmarks and warps their position in a non-rigid fashion, to match the mean shape $\textbf{Z}_0$.
-			This method removes more of the spatial variation of the position of features in the resulting image representation, $\textbf{a}_0$
-
+			\vspace{5mm}
 			\begin{figure}[H]
 				\begin{center}
 					\includegraphics[width=0.7\textwidth]{C-APP_Example}
@@ -121,6 +118,11 @@
 					}
 				\label{fig:app_strategies}
 			\end{figure}
+
+			\newpage
+			Another strategy what \cite{Lucey2011} and \cite{Ashraf2009} call the \emph{canonical appearance} or \textbf{C-APP}.
+			This method samples the intensities inside the shape bounded by the facial landmarks and warps their position in a non-rigid fashion, to match the mean shape $\textbf{Z}_0$.
+			This method removes more of the spatial variation of the position of features in the resulting image representation, $\textbf{a}_0$
 
 			A comparison of the two strategies is shown in Figure \ref{fig:app_strategies}.
 			As \cite{Ashraf2009} rightly notes, it would seem that \textbf{C-APP} removes too much variation, eg. in the case of an eye closure as shown in Figure \ref{fig:app_strategies}.
@@ -305,9 +307,10 @@
 
 			\paragraph{Recognizing FACS AUs with \textbf{S-PTS} data} % (fold)
 				\label{par:recognizing_facs_aus_with_s-pts}
+				\vspace{-2mm} 
 				\begin{figure}[H]
 					\begin{center}
-						\includegraphics[]{FACS_AUC_PTS.eps}
+						\includegraphics[width=0.6\linewidth]{FACS_AUC_PTS.eps}
 					\end{center}
 					\caption{
 						AUC for \textbf{S-PTS} tested on subjects 1 and 8.
@@ -320,9 +323,10 @@
 
 			\paragraph{Recognizing FACS AUs with \textbf{C-APP} data} % (fold)
 				\label{par:recognizing_facs_aus_with_c_app_data}
+				\vspace{-2mm} 
 				\begin{figure}[H]
 					\begin{center}
-						\includegraphics[]{FACS_AUC_App.eps}
+						\includegraphics[width=0.6\linewidth]{FACS_AUC_App.eps}
 					\end{center}
 					\caption{
 						AUC for \textbf{C-APP} tested on subjects 1 and 8.
@@ -333,9 +337,10 @@
 
 			\paragraph{Recognizing FACS AUs with \textbf{S-PTS} + \textbf{C-APP} data} % (fold)
 				\label{par:recognizing_facs_aus_with_s_pts_c_app_data}
+				\vspace{-2mm} 
 				\begin{figure}[H]
 					\begin{center}
-						\includegraphics[]{FACS_AUC_Full.eps}
+						\includegraphics[width=0.6\linewidth]{FACS_AUC_Full.eps}
 					\end{center}
 					\caption{
 						AUC for \textbf{S-PTS} + \textbf{C-APP} tested on subjects 1 and 8.
@@ -398,7 +403,14 @@
 			It may very well be that to much information is lost in converting to gray scale, and that this adversely affects performance.
 
 			As the authors also note, there is a good portion of the samples where out of plane motion is significant.
-			This seem to have introduced some artifacts in the image data when warping them the mean shape.\fxerror{Insert figure here}
+			This seem to have introduced some artifacts in the image data when warping them the mean shape (See Figure \ref{fig:artifact}).
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[]{Artifact}
+				\end{center}
+				\caption{Examples of faces with artifacs stemming form out of plane motion and the subject wearing glasses.}
+				\label{fig:artifact}
+			\end{figure}
 			In the scope of this project it has not been possible for me to deal with this, which means that these will likely have interfered with the performance of the classifier, although in what way and to what extent I cannot say say with certainty.
 			A test could be to manually exclude sequences where the subject moves excessively.
 
